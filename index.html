@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ivan Ong — Operations to Data</title>
+  <meta name="description" content="Ivan Ong — data-driven operations professional transitioning into Data Operations and Operations Analyst roles in Singapore." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="io-nav" id="top-nav">
+    <a href="#top" class="io-nav__brand">
+      <span class="io-nav__chip">IO</span>
+      <span class="io-nav__name">Ivan Ong</span>
+      <span class="io-nav__sub">· Operations / Data</span>
+    </a>
+    <div class="io-nav__links" id="nav-links">
+      <a href="#about"    class="io-nav__link" data-nav="about">About</a>
+      <a href="#skills"   class="io-nav__link" data-nav="skills">Skills</a>
+      <a href="#work"     class="io-nav__link" data-nav="work">Case Studies</a>
+      <a href="#projects" class="io-nav__link" data-nav="projects">Projects</a>
+      <a href="#contact"  class="io-nav__link" data-nav="contact">Contact</a>
+      <!-- Resume download link in nav -->
+      <a href="assets/Ivan_Ong_CV_Master.pdf" download target="_blank" rel="noopener"
+         class="io-btn io-btn--primary io-btn--sm">
+        <i data-lucide="arrow-down-to-line"></i>
+        Download CV
+      </a>
+    </div>
+    <button class="io-nav__toggle" id="nav-toggle" aria-label="Toggle menu">
+      <i data-lucide="menu"></i>
+    </button>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section id="top" class="io-hero">
+      <!-- Subtle burgundy radial glow at the top -->
+      <div class="io-hero__glow" aria-hidden="true"></div>
+
+      <div class="io-container">
+        <div class="io-hero__inner">
+
+          <!-- Copy — left column -->
+          <div class="io-hero__copy">
+            <div class="io-hero__eyebrow">
+              <span class="io-hairline"></span>
+              <span class="io-eyebrow io-eyebrow--accent">Operations · Analytics · Engineering</span>
+            </div>
+
+            <h1 class="io-hero__title">
+              Transforming operations into insights that drive better decisions.
+            </h1>
+
+            <p class="io-hero__sub">
+              Data-driven operations professional moving into Data Operations and
+              Operations Analyst roles — programme coordination, workflow
+              optimisation, operational reporting, and audit tracking.
+            </p>
+
+            <div class="io-hero__ctas">
+              <a href="#work" class="io-btn io-btn--primary">
+                View Case Studies
+                <i data-lucide="arrow-right"></i>
+              </a>
+              <!-- ▼ DOWNLOAD RESUME BUTTON — edit href to update the linked PDF -->
+              <a href="assets/Ivan_Ong_CV_Master.pdf" download target="_blank" rel="noopener"
+                 class="io-btn io-btn--secondary">
+                <i data-lucide="arrow-down-to-line"></i>
+                Download Resume
+              </a>
+              <a href="#contact" class="io-btn io-btn--ghost">Contact Me</a>
+            </div>
+
+            <div class="io-hero__meta">
+              <span><i data-lucide="map-pin"></i> Singapore · Open to remote</span>
+              <span class="io-dot">·</span>
+              <!-- ▼ AVAILABILITY BADGE — edit text here -->
+              <span><i data-lucide="calendar"></i> Available with immediate effect</span>
+              <span class="io-dot">·</span>
+              <span><i data-lucide="briefcase"></i> Data Operations · Ops Analyst · Programme Manager</span>
+            </div>
+          </div>
+
+          <!-- Visual — right column: decorative KPI cards (aria-hidden, purely decorative) -->
+          <div class="io-hero__visual" aria-hidden="true">
+            <div class="io-hv">
+              <!-- Decorative background layers -->
+              <div class="io-hv__glow"></div>
+              <div class="io-hv__grid"></div>
+              <div class="io-hv__scans">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="io-hv__corner io-hv__corner--tr"></div>
+              <div class="io-hv__corner io-hv__corner--bl"></div>
+
+              <!-- Main KPI panel -->
+              <div class="io-hv__card io-hv__main">
+                <div class="io-hv__panel-head">
+                  <span class="io-hv__hairline"></span>
+                  <span class="io-hv__panel-label">Operations · weekly</span>
+                  <span class="io-hv__live">
+                    <span class="io-hv__live-dot"></span> Live
+                  </span>
+                </div>
+                <div class="io-hv__stat-row">
+                  <div class="io-hv__stat-meta">
+                    <div class="io-hv__stat-label">Records / month</div>
+                    <div class="io-hv__stat-delta">
+                      <i data-lucide="trending-up"></i> +18.2%
+                    </div>
+                  </div>
+                  <div class="io-hv__stat-value">1,247</div>
+                </div>
+                <div class="io-hv__divider"></div>
+                <div class="io-hv__stat-row">
+                  <div class="io-hv__stat-meta">
+                    <div class="io-hv__stat-label">Avg cycle time</div>
+                    <div class="io-hv__stat-delta io-hv__stat-delta--good">
+                      <i data-lucide="trending-down"></i> -12%
+                    </div>
+                  </div>
+                  <div class="io-hv__stat-value">2.4<span class="io-hv__stat-unit">h</span></div>
+                </div>
+                <div class="io-hv__divider"></div>
+                <div class="io-hv__stat-row">
+                  <div class="io-hv__stat-meta">
+                    <div class="io-hv__stat-label">Audits resolved</div>
+                    <div class="io-hv__stat-delta">
+                      <i data-lucide="check"></i> on track
+                    </div>
+                  </div>
+                  <div class="io-hv__stat-value">350<span class="io-hv__stat-plus">+</span></div>
+                </div>
+              </div>
+
+              <!-- Floating accent card -->
+              <div class="io-hv__card io-hv__float">
+                <div class="io-hv__float-head">
+                  <span class="io-hv__float-label">Workflows</span>
+                  <span class="io-hv__float-pill">active</span>
+                </div>
+                <div class="io-hv__float-value">12</div>
+                <div class="io-hv__float-bars">
+                  <span style="height:42%"></span>
+                  <span style="height:62%"></span>
+                  <span style="height:48%"></span>
+                  <span style="height:78%"></span>
+                </div>
+                <div class="io-hv__float-foot">
+                  <i data-lucide="trending-up"></i>
+                  <span>+4 this week</span>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- /.io-hero__visual -->
+
+        </div><!-- /.io-hero__inner -->
+      </div><!-- /.io-container -->
+    </section><!-- /#top / hero -->
+
+
+    <!-- ===== METRICS — 01 / BY THE NUMBERS ===== -->
+    <section id="metrics" class="io-section io-section--alt">
+      <div class="io-container">
+        <div class="io-section__head">
+          <div class="io-section__eyebrow">
+            <span class="io-hairline"></span>
+            <span class="io-eyebrow io-eyebrow--accent">01 / By the numbers</span>
+          </div>
+          <h2 class="io-section__title">Operational impact, in numbers.</h2>
+          <p class="io-section__sub">Estimates from anonymised operations work — directional, not absolute claims.</p>
+        </div>
+
+        <div class="io-metrics-grid">
+
+          <div class="io-metric" data-metric-value="350" data-metric-suffix="+">
+            <div class="io-metric__top">
+              <span class="io-metric__index">01</span>
+              <span class="io-metric__label">Monthly sessions</span>
+            </div>
+            <div class="io-metric__value">
+              <span class="io-metric__num">0</span>
+              <span class="io-metric__suffix">+</span>
+            </div>
+            <div class="io-metric__caption">audits coordinated or supported each month</div>
+          </div>
+
+          <div class="io-metric" data-metric-value="1000" data-metric-suffix="+">
+            <div class="io-metric__top">
+              <span class="io-metric__index">02</span>
+              <span class="io-metric__label">Records / month</span>
+            </div>
+            <div class="io-metric__value">
+              <span class="io-metric__num">0</span>
+              <span class="io-metric__suffix">+</span>
+            </div>
+            <div class="io-metric__caption">operational records handled per cycle</div>
+          </div>
+
+          <div class="io-metric" data-metric-value="20" data-metric-suffix="%">
+            <div class="io-metric__top">
+              <span class="io-metric__index">03</span>
+              <span class="io-metric__label">Scheduling</span>
+              <span class="io-metric__trend">
+                <i data-lucide="trending-up"></i>
+              </span>
+            </div>
+            <div class="io-metric__value">
+              <span class="io-metric__num">0</span>
+              <span class="io-metric__suffix">%</span>
+            </div>
+            <div class="io-metric__caption">estimated improvement in scheduling efficiency</div>
+          </div>
+
+          <div class="io-metric" data-metric-value="30" data-metric-suffix="%">
+            <div class="io-metric__top">
+              <span class="io-metric__index">04</span>
+              <span class="io-metric__label">Disruptions</span>
+              <span class="io-metric__trend">
+                <i data-lucide="trending-down"></i>
+              </span>
+            </div>
+            <div class="io-metric__value">
+              <span class="io-metric__num">0</span>
+              <span class="io-metric__suffix">%</span>
+            </div>
+            <div class="io-metric__caption">estimated reduction in session disruptions</div>
+          </div>
+
+          <div class="io-metric" data-metric-value="40" data-metric-suffix="%">
+            <div class="io-metric__top">
+              <span class="io-metric__index">05</span>
+              <span class="io-metric__label">Manual workload</span>
+              <span class="io-metric__trend">
+                <i data-lucide="trending-down"></i>
+              </span>
+            </div>
+            <div class="io-metric__value">
+              <span class="io-metric__num">0</span>
+              <span class="io-metric__suffix">%</span>
+            </div>
+            <div class="io-metric__caption">estimated reduction via automation and standardisation</div>
+          </div>
+
+        </div><!-- /.io-metrics-grid -->
+      </div>
+    </section><!-- /metrics -->
+
+
+    <!-- ===== ABOUT — 02 / ABOUT ===== -->
+    <section id="about" class="io-section">
+      <div class="io-container">
+        <div class="io-section__head">
+          <div class="io-section__eyebrow">
+            <span class="io-hairline"></span>
+            <span class="io-eyebrow io-eyebrow--accent">02 / About</span>
+          </div>
+          <h2 class="io-section__title">Operations rigour, brought to data.</h2>
+        </div>
+
+        <div class="io-about">
+          <!-- Profile photo — place ivan-profile.jpg in the assets/ folder -->
+          <div class="io-about__photo">
+            <img
+              src="assets/ivan-profile.jpg"
+              alt="Professional photo of Ivan Ong"
+              class="io-about__photo-img"
+            />
+          </div>
+
+          <!-- Narrative copy -->
+          <div class="io-about__copy">
+            <p>
+              A <span class="io-em">data-driven operations professional</span>
+              transitioning into Data Operations and Operations Analyst roles, with
+              experience in programme coordination, workflow optimisation,
+              operational reporting, audit tracking, and stakeholder coordination.
+            </p>
+            <p>
+              I began my career in <span class="io-em">operations and police
+              leadership</span>, coordinating large rotating teams and the systems
+              that supported them. That work — auditing, scheduling, compliance
+              tracking, reporting — is where I learned to treat process as product.
+            </p>
+            <p>
+              Day to day I work in <span class="io-em">Excel and Google
+              Sheets</span>: operational trackers, reporting workflows, data
+              validation and cleaning, scheduling, and audit / compliance views.
+              Based in Singapore. Singapore-based and remote roles preferred;
+              <!-- ▼ AUSTRALIA WORDING — keep exactly as is -->
+              open to Australia-based opportunities where visa sponsorship is available.
+              Targeting Data Operations, Operations Analyst, Operations Manager,
+              and Programme Manager roles.
+            </p>
+            <div class="io-about__sig">
+              <span class="io-mono">— Ivan Ong</span>
+            </div>
+          </div>
+        </div><!-- /.io-about -->
+      </div>
+    </section><!-- /about -->
+
+
+    <!-- ===== SKILLS — 03 / TOOLKIT ===== -->
+    <section id="skills" class="io-section io-section--alt">
+      <div class="io-container">
+        <div class="io-section__head">
+          <div class="io-section__eyebrow">
+            <span class="io-hairline"></span>
+            <span class="io-eyebrow io-eyebrow--accent">03 / Toolkit</span>
+          </div>
+          <h2 class="io-section__title">Skills &amp; tools.</h2>
+          <p class="io-section__sub">
+            Strong in Excel and Google Sheets for operations data. Actively building
+            technical depth in SQL, Python, Power BI, and data engineering foundations.
+          </p>
+        </div>
+
+        <div class="io-skills--triple">
+
+          <!-- Column 1: Strong skills -->
+          <div class="io-skills__col">
+            <div class="io-skills__heading-row">
+              <span class="io-eyebrow io-eyebrow--accent io-skills__heading">Strong</span>
+              <span class="io-skills__heading-meta">Daily, production-grade</span>
+            </div>
+            <div class="io-skills__list">
+              <div class="io-skill">
+                <div class="io-skill__icon"><i data-lucide="table-2"></i></div>
+                <div class="io-skill__text">
+                  <div class="io-skill__label">Excel</div>
+                  <div class="io-skill__level">Formulas · Pivot Tables · Lookups · Conditional Formatting</div>
+                </div>
+              </div>
+              <div class="io-skill">
+                <div class="io-skill__icon"><i data-lucide="sheet"></i></div>
+                <div class="io-skill__text">
+                  <div class="io-skill__label">Google Sheets</div>
+                  <div class="io-skill__level">Live Trackers · Data Validation · Query / Filter Views</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Currently learning -->
+          <div class="io-skills__col">
+            <div class="io-skills__heading-row">
+              <span class="io-eyebrow io-eyebrow--neutral io-skills__heading">Currently learning</span>
+              <span class="io-skills__heading-meta">In progress</span>
+            </div>
+            <div class="io-skills__list">
+              <div class="io-skill io-skill--learning">
+                <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="database"></i></div>
+                <div class="io-skill__text">
+                  <div class="io-skill__label">SQL <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__level">Joins · Aggregations · Working Queries</div>
+                </div>
+              </div>
+              <div class="io-skill io-skill--learning">
+                <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="code-2"></i></div>
+                <div class="io-skill__text">
+                  <div class="io-skill__label">Python <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__level">Foundations · Pandas Basics</div>
+                </div>
+              </div>
+              <div class="io-skill io-skill--learning">
+                <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="bar-chart-3"></i></div>
+                <div class="io-skill__text">
+                  <div class="io-skill__label">Power BI <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__level">Foundations · Charts · Data Modelling</div>
+                </div>
+              </div>
+              <!-- ▼ DATA ENGINEERING CARD — title, badge, and description controlled here -->
+              <div class="io-skill io-skill--learning">
+                <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="boxes"></i></div>
+                <div class="io-skill__text">
+                  <div class="io-skill__label">Data Engineering Foundations <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__level">ETL/ELT Concepts · Workflow Orchestration · Data Validation</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Practice / process strengths -->
+          <div class="io-skills__col">
+            <div class="io-skills__heading-row">
+              <span class="io-eyebrow io-eyebrow--neutral io-skills__heading">Practice</span>
+              <span class="io-skills__heading-meta">Process strengths</span>
+            </div>
+            <div class="io-skills__pills">
+              <span class="io-pill"><i data-lucide="sparkles"></i> Data Cleaning</span>
+              <span class="io-pill"><i data-lucide="line-chart"></i> Reporting &amp; Dashboards</span>
+              <span class="io-pill"><i data-lucide="git-branch"></i> Workflow Optimisation</span>
+              <span class="io-pill"><i data-lucide="activity"></i> Operations Analytics</span>
+              <span class="io-pill"><i data-lucide="users"></i> Stakeholder Coordination</span>
+              <span class="io-pill"><i data-lucide="workflow"></i> Process Improvement</span>
+            </div>
+          </div>
+
+        </div><!-- /.io-skills--triple -->
+      </div>
+    </section><!-- /skills -->
+
+
+    <!-- ===== CASE STUDIES — 04 / SELECTED WORK ===== -->
+    <section id="work" class="io-section">
+      <div class="io-container">
+        <div class="io-section__head">
+          <div class="io-section__eyebrow">
+            <span class="io-hairline"></span>
+            <span class="io-eyebrow io-eyebrow--accent">04 / Selected work</span>
+          </div>
+          <h2 class="io-section__title">Case studies.</h2>
+          <p class="io-section__sub">
+            Each study is anonymised. Numbers are estimates from operations work, not absolute claims.
+          </p>
+        </div>
+
+        <div class="io-cases">
+
+          <!-- Case Study 01 -->
+          <article class="io-case" data-modal="modal-cs-1">
+            <div class="io-case__eyebrow">
+              <span class="io-eyebrow io-eyebrow--accent">01 / CASE STUDY</span>
+              <span class="io-mono io-case__tag">· WORKFLOW · SCHEDULING</span>
+            </div>
+            <h3 class="io-case__title">Auditor Scheduling &amp; Data Integration</h3>
+            <p class="io-case__blurb">
+              A recurring scheduling workflow that supported 350+ monthly audit
+              sessions across rotating teams.
+            </p>
+            <div class="io-case__row">
+              <div class="io-case__tools">
+                <span class="io-pill io-pill--sm">Excel</span>
+                <span class="io-pill io-pill--sm">Google Sheets</span>
+                <span class="io-pill io-pill--sm">Scheduling</span>
+                <span class="io-pill io-pill--sm">Operations</span>
+              </div>
+              <span class="io-case__more">Read case study <i data-lucide="arrow-right"></i></span>
+            </div>
+          </article>
+
+          <!-- Case Study 02 -->
+          <article class="io-case" data-modal="modal-cs-2">
+            <div class="io-case__eyebrow">
+              <span class="io-eyebrow io-eyebrow--accent">02 / CASE STUDY</span>
+              <span class="io-mono io-case__tag">· COMPLIANCE · REPORTING</span>
+            </div>
+            <h3 class="io-case__title">Audit Tracking &amp; Compliance Workflow</h3>
+            <p class="io-case__blurb">
+              Standardised audit status reporting across multiple teams with weekly
+              compliance summaries.
+            </p>
+            <div class="io-case__row">
+              <div class="io-case__tools">
+                <span class="io-pill io-pill--sm">Excel</span>
+                <span class="io-pill io-pill--sm">Google Sheets</span>
+                <span class="io-pill io-pill--sm">Compliance Tracking</span>
+                <span class="io-pill io-pill--sm">Reporting</span>
+              </div>
+              <span class="io-case__more">Read case study <i data-lucide="arrow-right"></i></span>
+            </div>
+          </article>
+
+          <!-- Case Study 03 -->
+          <article class="io-case" data-modal="modal-cs-3">
+            <div class="io-case__eyebrow">
+              <span class="io-eyebrow io-eyebrow--accent">03 / CASE STUDY</span>
+              <span class="io-mono io-case__tag">· PIPELINE · STANDARDISATION</span>
+            </div>
+            <h3 class="io-case__title">Data Cleaning &amp; Standardisation Workflow</h3>
+            <p class="io-case__blurb">
+              A reusable spreadsheet workflow that normalises messy operational
+              inputs into a single schema.
+            </p>
+            <div class="io-case__row">
+              <div class="io-case__tools">
+                <span class="io-pill io-pill--sm">Excel</span>
+                <span class="io-pill io-pill--sm">Google Sheets</span>
+                <span class="io-pill io-pill--sm">Data Cleaning</span>
+                <span class="io-pill io-pill--sm">Data Validation</span>
+              </div>
+              <span class="io-case__more">Read case study <i data-lucide="arrow-right"></i></span>
+            </div>
+          </article>
+
+          <!-- Case Study 04 -->
+          <article class="io-case" data-modal="modal-cs-4">
+            <div class="io-case__eyebrow">
+              <span class="io-eyebrow io-eyebrow--accent">04 / CASE STUDY</span>
+              <span class="io-mono io-case__tag">· REPORTING · OPERATIONS</span>
+            </div>
+            <h3 class="io-case__title">Operations Reporting &amp; Tracker Improvements</h3>
+            <p class="io-case__blurb">
+              Reworked an operations reporting tracker so leads could answer
+              "what changed this week?" at a glance.
+            </p>
+            <div class="io-case__row">
+              <div class="io-case__tools">
+                <span class="io-pill io-pill--sm">Excel</span>
+                <span class="io-pill io-pill--sm">Google Sheets</span>
+                <span class="io-pill io-pill--sm">Reporting</span>
+                <span class="io-pill io-pill--sm">Operations Analytics</span>
+              </div>
+              <span class="io-case__more">Read case study <i data-lucide="arrow-right"></i></span>
+            </div>
+          </article>
+
+        </div><!-- /.io-cases -->
+      </div>
+    </section><!-- /work -->
+
+
+    <!-- ===== PROJECTS — 05 / OPERATIONAL TOOLS ===== -->
+    <section id="projects" class="io-section io-section--alt">
+      <div class="io-container">
+        <div class="io-section__head">
+          <div class="io-section__eyebrow">
+            <span class="io-hairline"></span>
+            <span class="io-eyebrow io-eyebrow--accent">05 / Operational tools</span>
+          </div>
+          <h2 class="io-section__title">Projects.</h2>
+          <p class="io-section__sub">
+            Excel and Google Sheets-based operational tools, trackers, and workflow
+            improvements built from real operations needs using anonymised or dummy data.
+          </p>
+        </div>
+
+        <div class="io-projects">
+
+          <article class="io-project">
+            <h3 class="io-project__title">Audit Scheduling &amp; Manpower Tracker</h3>
+            <p class="io-project__blurb">
+              An Excel / Google Sheets-based tracker used to organise audit
+              assignments, manpower availability, session coverage, and scheduling
+              gaps across multiple programmes.
+            </p>
+            <div class="io-project__tools">
+              <span class="io-pill io-pill--sm">Excel</span>
+              <span class="io-pill io-pill--sm">Google Sheets</span>
+              <span class="io-pill io-pill--sm">Scheduling</span>
+              <span class="io-pill io-pill--sm">Operations</span>
+            </div>
+          </article>
+
+          <article class="io-project">
+            <h3 class="io-project__title">Audit Tracking &amp; Compliance Dashboard</h3>
+            <p class="io-project__blurb">
+              A spreadsheet-based tracking system for consolidating audit findings,
+              follow-up statuses, evidence checks, and compliance updates.
+            </p>
+            <div class="io-project__tools">
+              <span class="io-pill io-pill--sm">Excel</span>
+              <span class="io-pill io-pill--sm">Google Sheets</span>
+              <span class="io-pill io-pill--sm">Compliance Tracking</span>
+              <span class="io-pill io-pill--sm">Reporting</span>
+            </div>
+          </article>
+
+          <article class="io-project">
+            <h3 class="io-project__title">Data Cleaning &amp; Standardisation Workflow</h3>
+            <p class="io-project__blurb">
+              A spreadsheet workflow for cleaning, standardising, and validating
+              operational data from multiple sources before reporting. Includes
+              checks for naming inconsistencies, missing fields, and duplicates.
+            </p>
+            <div class="io-project__tools">
+              <span class="io-pill io-pill--sm">Excel</span>
+              <span class="io-pill io-pill--sm">Google Sheets</span>
+              <span class="io-pill io-pill--sm">Data Cleaning</span>
+              <span class="io-pill io-pill--sm">Data Validation</span>
+            </div>
+          </article>
+
+          <article class="io-project">
+            <h3 class="io-project__title">Operations Reporting Tracker</h3>
+            <p class="io-project__blurb">
+              A structured reporting tracker used to summarise operational activity,
+              session status, manpower updates, and key issue trends for management
+              review.
+            </p>
+            <div class="io-project__tools">
+              <span class="io-pill io-pill--sm">Excel</span>
+              <span class="io-pill io-pill--sm">Google Sheets</span>
+              <span class="io-pill io-pill--sm">Reporting</span>
+              <span class="io-pill io-pill--sm">Operations Analytics</span>
+            </div>
+          </article>
+
+        </div><!-- /.io-projects -->
+
+        <p class="io-projects__note">
+          <i data-lucide="info"></i>
+          Project samples are being prepared with anonymised data and documentation.
+        </p>
+      </div>
+    </section><!-- /projects -->
+
+
+    <!-- ===== EXPERIENCE — referenced in About; no separate section in this design ===== -->
+    <!-- Ivan's experience narrative is in the About section above. -->
+    <!-- To add a dedicated Experience/Timeline section, insert it here. -->
+
+
+    <!-- ===== RESUME ===== -->
+    <!-- The Download Resume button is in the Hero CTAs above (line ~61). -->
+    <!-- The Download CV button is in the Nav above (line ~20). -->
+    <!-- Both link to: assets/Ivan_Ong_CV_Master.pdf -->
+
+
+    <!-- ===== CONTACT — 06 / CONTACT ===== -->
+    <section id="contact" class="io-section">
+      <div class="io-container">
+        <div class="io-section__head">
+          <div class="io-section__eyebrow">
+            <span class="io-hairline"></span>
+            <span class="io-eyebrow io-eyebrow--accent">06 / Contact</span>
+          </div>
+          <h2 class="io-section__title">Let's talk about the role.</h2>
+          <p class="io-section__sub">Best for recruiters, hiring managers, and referrals. Replies within 1–2 business days.</p>
+        </div>
+
+        <!-- Contact meta strip -->
+        <div class="io-contact-meta">
+          <div class="io-contact-meta__item">
+            <i data-lucide="mail"></i>
+            <div>
+              <div class="io-contact-meta__label">Email</div>
+              <!-- ▼ PROFESSIONAL EMAIL — edit here -->
+              <a href="mailto:IvanJTOng@gmail.com" class="io-contact-meta__value">IvanJTOng@gmail.com</a>
+            </div>
+          </div>
+          <div class="io-contact-meta__item">
+            <i data-lucide="map-pin"></i>
+            <div>
+              <div class="io-contact-meta__label">Location</div>
+              <div class="io-contact-meta__value">Singapore</div>
+            </div>
+          </div>
+          <div class="io-contact-meta__item">
+            <i data-lucide="briefcase"></i>
+            <div>
+              <div class="io-contact-meta__label">Open to</div>
+              <div class="io-contact-meta__value">Data Operations · Ops Analyst · Operations Manager · Programme Manager</div>
+            </div>
+          </div>
+          <div class="io-contact-meta__item">
+            <i data-lucide="globe"></i>
+            <div>
+              <div class="io-contact-meta__label">Work preference</div>
+              <!-- ▼ AUSTRALIA WORDING — keep exactly as is -->
+              <div class="io-contact-meta__value">
+                Singapore-based and remote roles preferred.
+                Open to Australia-based opportunities where visa sponsorship is available.
+              </div>
+            </div>
+          </div>
+        </div><!-- /.io-contact-meta -->
+
+        <!-- Form + rail -->
+        <div class="io-contact">
+
+          <!-- Contact form (submits via mailto fallback) -->
+          <form class="io-form" id="contact-form" novalidate>
+            <div class="io-field">
+              <label for="cf-email">Your email</label>
+              <input type="email" id="cf-email" name="email" placeholder="recruiter@company.com" required />
+            </div>
+            <div class="io-field">
+              <label for="cf-company">Company / role</label>
+              <input type="text" id="cf-company" name="company" placeholder="e.g. Data Analyst, Series B fintech" />
+            </div>
+            <div class="io-field">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" rows="4"
+                placeholder="A few lines about the role and what you're hoping to discuss…" required></textarea>
+            </div>
+            <button type="submit" class="io-btn io-btn--primary" id="cf-submit">
+              Send message <i data-lucide="arrow-right"></i>
+            </button>
+            <p class="io-form__hint">
+              <i data-lucide="info"></i>
+              Submitting opens your email client addressed to IvanJTOng@gmail.com.
+            </p>
+          </form>
+
+          <!-- Direct contact rail -->
+          <aside class="io-contact__rail">
+            <span class="io-eyebrow io-eyebrow--neutral">Direct</span>
+            <a class="io-contact__link" href="mailto:IvanJTOng@gmail.com">
+              <i data-lucide="mail"></i>
+              <div>
+                <div class="io-contact__label">Email</div>
+                <div class="io-mono">IvanJTOng@gmail.com</div>
+              </div>
+            </a>
+            <a class="io-contact__link" href="https://www.linkedin.com/in/ivan-ong-a6985319b"
+               target="_blank" rel="noopener">
+              <i data-lucide="linkedin"></i>
+              <div>
+                <div class="io-contact__label">LinkedIn</div>
+                <div class="io-mono">linkedin.com/in/ivan-ong-a6985319b</div>
+              </div>
+            </a>
+            <!-- ▼ RESUME DOWNLOAD in rail — edit href to update the linked PDF -->
+            <a class="io-contact__link" href="assets/Ivan_Ong_CV_Master.pdf" download target="_blank" rel="noopener">
+              <i data-lucide="arrow-down-to-line"></i>
+              <div>
+                <div class="io-contact__label">Resume</div>
+                <div class="io-mono">Ivan_Ong_CV_Master.pdf</div>
+              </div>
+            </a>
+            <div class="io-contact__note">
+              <i data-lucide="info"></i>
+              <span>Open to Australia-based opportunities where visa sponsorship is available.</span>
+            </div>
+          </aside>
+
+        </div><!-- /.io-contact -->
+      </div>
+    </section><!-- /contact -->
+
+  </main>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="io-footer">
+    <div class="io-container io-footer__inner">
+      <div class="io-footer__brand">
+        <span class="io-nav__chip">IO</span>
+        <div>
+          <div class="io-footer__name">Ivan Ong</div>
+          <div class="io-footer__sub">Operations-to-Data · Singapore</div>
+        </div>
+      </div>
+      <div class="io-footer__rail">
+        <a href="mailto:IvanJTOng@gmail.com" aria-label="Email">
+          <i data-lucide="mail"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/ivan-ong-a6985319b" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i data-lucide="linkedin"></i>
+        </a>
+        <a href="assets/Ivan_Ong_CV_Master.pdf" download target="_blank" rel="noopener" aria-label="Download CV">
+          <i data-lucide="arrow-down-to-line"></i>
+        </a>
+      </div>
+      <div class="io-footer__colophon">
+        <span>© 2026 Ivan Ong</span>
+        <span class="io-dot">·</span>
+        <span>IvanJTOng@gmail.com</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ===== CASE STUDY MODALS ===== -->
+
+  <!-- Modal CS-1: Auditor Scheduling -->
+  <div class="io-modal" id="modal-cs-1" role="dialog" aria-modal="true" aria-labelledby="modal-cs-1-title">
+    <div class="io-modal__panel">
+      <button class="io-modal__close" data-modal-close aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="io-modal__head">
+        <div class="io-eyebrow io-eyebrow--accent">01 / CASE STUDY</div>
+        <h2 class="io-modal__title" id="modal-cs-1-title">Auditor Scheduling &amp; Data Integration</h2>
+        <div class="io-mono io-case__tag">WORKFLOW · SCHEDULING</div>
+      </div>
+      <div class="io-modal__body">
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Context</span>
+          <p>A large operations team ran recurring audit sessions across multiple sites. Schedules lived in scattered spreadsheets; assignments were copy-pasted between owners weekly.</p>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Problem</span>
+          <p>Manual scheduling created mismatched assignments, late confirmations, and an estimated 30% rate of last-minute swaps that disrupted sessions.</p>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Solution</span>
+          <p>Designed a single source of truth in Google Sheets — a master roster with validation rules, role-based assignment templates, and a derived view that summarised the upcoming week. Standardised intake from team leads via a simple form so changes flowed into one place.</p>
+        </div>
+        <div class="io-modal__meta">
+          <div class="io-modal__meta-col">
+            <span class="io-eyebrow io-eyebrow--neutral">Tools</span>
+            <div class="io-case__tools">
+              <span class="io-pill io-pill--sm">Excel</span>
+              <span class="io-pill io-pill--sm">Google Sheets</span>
+              <span class="io-pill io-pill--sm">Scheduling</span>
+              <span class="io-pill io-pill--sm">Operations</span>
+            </div>
+          </div>
+          <div class="io-modal__meta-col">
+            <span class="io-eyebrow io-eyebrow--neutral">Data scale</span>
+            <p class="io-mono io-modal__scale">350+ sessions / month · 1,000+ records / month</p>
+          </div>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Impact</span>
+          <ul class="io-impact">
+            <li><i data-lucide="check"></i><span>~20% improvement in scheduling efficiency</span></li>
+            <li><i data-lucide="check"></i><span>~30% reduction in session disruptions</span></li>
+            <li><i data-lucide="check"></i><span>Lead time for schedule publication cut from 3 days to same-day</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal CS-2: Audit Tracking -->
+  <div class="io-modal" id="modal-cs-2" role="dialog" aria-modal="true" aria-labelledby="modal-cs-2-title">
+    <div class="io-modal__panel">
+      <button class="io-modal__close" data-modal-close aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="io-modal__head">
+        <div class="io-eyebrow io-eyebrow--accent">02 / CASE STUDY</div>
+        <h2 class="io-modal__title" id="modal-cs-2-title">Audit Tracking &amp; Compliance Workflow</h2>
+        <div class="io-mono io-case__tag">COMPLIANCE · REPORTING</div>
+      </div>
+      <div class="io-modal__body">
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Context</span>
+          <p>Audit status was tracked inconsistently across leads. Compliance reviews required manual collation and reconciliation each cycle.</p>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Problem</span>
+          <p>Reports took half a day to assemble and contained drift between sources, leading to follow-up loops and missed deadlines.</p>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Solution</span>
+          <p>Built a unified tracking schema in Excel with categorical status fields, owner, due date, and resolution notes. Used pivot tables and conditional formatting for weekly rollups, with a one-page summary view leads could filter by team and cycle.</p>
+        </div>
+        <div class="io-modal__meta">
+          <div class="io-modal__meta-col">
+            <span class="io-eyebrow io-eyebrow--neutral">Tools</span>
+            <div class="io-case__tools">
+              <span class="io-pill io-pill--sm">Excel</span>
+              <span class="io-pill io-pill--sm">Google Sheets</span>
+              <span class="io-pill io-pill--sm">Compliance Tracking</span>
+              <span class="io-pill io-pill--sm">Reporting</span>
+            </div>
+          </div>
+          <div class="io-modal__meta-col">
+            <span class="io-eyebrow io-eyebrow--neutral">Data scale</span>
+            <p class="io-mono io-modal__scale">Reviewed across 6 teams · weekly cycle</p>
+          </div>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Impact</span>
+          <ul class="io-impact">
+            <li><i data-lucide="check"></i><span>Compliance reporting time reduced from ~4 hours to ~30 minutes</span></li>
+            <li><i data-lucide="check"></i><span>Eliminated duplicate-entry drift between team sheets</span></li>
+            <li><i data-lucide="check"></i><span>Audit close-out rate improved across consecutive cycles</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal CS-3: Data Cleaning -->
+  <div class="io-modal" id="modal-cs-3" role="dialog" aria-modal="true" aria-labelledby="modal-cs-3-title">
+    <div class="io-modal__panel">
+      <button class="io-modal__close" data-modal-close aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="io-modal__head">
+        <div class="io-eyebrow io-eyebrow--accent">03 / CASE STUDY</div>
+        <h2 class="io-modal__title" id="modal-cs-3-title">Data Cleaning &amp; Standardisation Workflow</h2>
+        <div class="io-mono io-case__tag">PIPELINE · STANDARDISATION</div>
+      </div>
+      <div class="io-modal__body">
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Context</span>
+          <p>Operational inputs arrived in inconsistent formats — different column names, mixed casing, partial dates, free-text categories.</p>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Problem</span>
+          <p>Each downstream report needed ad-hoc cleanup, doubling effort and introducing transcription errors.</p>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Solution</span>
+          <p>Built a structured Sheets workbook with column-rename maps, date-format helpers, and a category normalisation lookup table. Documented a checklist so non-engineers could re-run the workflow on each new input batch.</p>
+        </div>
+        <div class="io-modal__meta">
+          <div class="io-modal__meta-col">
+            <span class="io-eyebrow io-eyebrow--neutral">Tools</span>
+            <div class="io-case__tools">
+              <span class="io-pill io-pill--sm">Excel</span>
+              <span class="io-pill io-pill--sm">Google Sheets</span>
+              <span class="io-pill io-pill--sm">Data Cleaning</span>
+              <span class="io-pill io-pill--sm">Data Validation</span>
+            </div>
+          </div>
+          <div class="io-modal__meta-col">
+            <span class="io-eyebrow io-eyebrow--neutral">Data scale</span>
+            <p class="io-mono io-modal__scale">~1,000 records / month · 8 input variants</p>
+          </div>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Impact</span>
+          <ul class="io-impact">
+            <li><i data-lucide="check"></i><span>Estimated 40% reduction in manual workload for downstream reports</span></li>
+            <li><i data-lucide="check"></i><span>Deduplicated category list from ~60 freeform values to 14 canonical ones</span></li>
+            <li><i data-lucide="check"></i><span>Reused across three subsequent reporting projects</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal CS-4: Operations Reporting -->
+  <div class="io-modal" id="modal-cs-4" role="dialog" aria-modal="true" aria-labelledby="modal-cs-4-title">
+    <div class="io-modal__panel">
+      <button class="io-modal__close" data-modal-close aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="io-modal__head">
+        <div class="io-eyebrow io-eyebrow--accent">04 / CASE STUDY</div>
+        <h2 class="io-modal__title" id="modal-cs-4-title">Operations Reporting &amp; Tracker Improvements</h2>
+        <div class="io-mono io-case__tag">REPORTING · OPERATIONS</div>
+      </div>
+      <div class="io-modal__body">
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Context</span>
+          <p>An existing report surfaced raw metrics but no narrative — leads still asked the same week-over-week questions in meetings.</p>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Problem</span>
+          <p>The report answered "what?" but not "what changed?" — defeating the point of self-serve reporting.</p>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Solution</span>
+          <p>Restructured the tracker in Excel into three views: a week-over-week summary, a rolling 8-week trend, and an exception page surfacing outliers. Added clear callouts and conditional formatting for material changes.</p>
+        </div>
+        <div class="io-modal__meta">
+          <div class="io-modal__meta-col">
+            <span class="io-eyebrow io-eyebrow--neutral">Tools</span>
+            <div class="io-case__tools">
+              <span class="io-pill io-pill--sm">Excel</span>
+              <span class="io-pill io-pill--sm">Google Sheets</span>
+              <span class="io-pill io-pill--sm">Reporting</span>
+              <span class="io-pill io-pill--sm">Operations Analytics</span>
+            </div>
+          </div>
+          <div class="io-modal__meta-col">
+            <span class="io-eyebrow io-eyebrow--neutral">Data scale</span>
+            <p class="io-mono io-modal__scale">Used by ops leads across multiple teams · weekly cadence</p>
+          </div>
+        </div>
+        <div class="io-modal__block">
+          <span class="io-eyebrow io-eyebrow--neutral">Impact</span>
+          <ul class="io-impact">
+            <li><i data-lucide="check"></i><span>Reduced standing-meeting time discussing report basics</span></li>
+            <li><i data-lucide="check"></i><span>Leads began acting on outlier flags within the same week</span></li>
+            <li><i data-lucide="check"></i><span>Tracker adoption rose across the team after redesign</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Lucide icons CDN — loaded last so DOM is ready -->
+  <script src="https://unpkg.com/lucide@0.428.0/dist/umd/lucide.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>

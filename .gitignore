@@ -1,0 +1,38 @@
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS (if collaborating)
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node (if you ever add a build step)
+node_modules/
+package-lock.json
+
+# Design source and backup folders — not required for the live site
+project/
+project-backup/
+
+# Archives
+*.zip
+
+# Environment / secrets (safety net)
+.env
+.env.local
