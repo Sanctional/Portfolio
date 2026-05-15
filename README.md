@@ -1,22 +1,36 @@
-# CODING AGENTS: READ THIS FIRST
+# Ivan Ong Portfolio
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+Personal portfolio website for Ivan Ong, showcasing my transition from operations and programme coordination into data operations, operations analytics, and workflow optimisation.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+## Focus Areas
 
-## What you should do — IMPORTANT
+- Data Operations
+- Operations Analytics
+- Workflow Optimisation
+- Reporting & Dashboards
+- Process Improvement
+- Stakeholder Coordination
 
-**Read `ivan-ong-portfolio/project/Ivan Ong Portfolio.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+## Built With
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+- HTML
+- CSS
+- JavaScript
+- GitHub Pages
 
-## About the design files
+## About
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+This portfolio highlights my experience in programme coordination, audit tracking, scheduling workflows, operational reporting, data validation, and process improvement.
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+The website is designed to support applications for roles such as:
 
-## Bundle contents
+- Data Operations Analyst
+- Operations Analyst
+- Data Ops Coordinator
+- Programme Manager
+- Operations Manager
 
-- `ivan-ong-portfolio/README.md` — this file
-- `ivan-ong-portfolio/project/` — the `Ivan Ong Portfolio` project files (HTML prototypes, assets, components)
+## Contact
+
+Email: IvanJTOng@gmail.com  
+LinkedIn: www.linkedin.com/in/ivan-ong-a6985319b
