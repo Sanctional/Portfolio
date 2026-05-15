@@ -2,6 +2,10 @@
 
 Personal portfolio website for Ivan Ong, showcasing my transition from operations and programme coordination into data operations, operations analytics, and workflow optimisation.
 
+## Live Portfolio
+
+View the website here: https://sanctional.github.io/Portfolio/
+
 ## Focus Areas
 
 - Data Operations
