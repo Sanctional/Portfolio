@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
+
+/* ─── SCREEN MANAGEMENT ─────────────────────────────────── */
+.screen{position:fixed;inset:0;transition:opacity .8s ease,transform .8s ease;will-change:opacity,transform}
+.screen.hidden{opacity:0;pointer-events:none;transform:scale(.97)}
+
+/* ─── SCENE SELECTOR ────────────────────────────────────── */
+#selector{
+  background:linear-gradient(135deg,#0d0a0f 0%,#1a0f1e 40%,#0f1a10 100%);
+  overflow-y:auto;
+  display:flex;flex-direction:column;align-items:center;
+  padding:3rem 1.5rem 4rem;
+}
+#selector::before{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse 60% 40% at 50% 30%,rgba(180,100,120,.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.selector-header{text-align:center;margin-bottom:3rem;position:relative;z-index:1}
+.selector-title{
+  font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,4rem);
+  font-style:italic;color:#f0d9c8;letter-spacing:.02em;
+  text-shadow:0 0 40px rgba(220,140,120,.5);
+}
+.selector-title span{color:#e8a0b0}
+.selector-sub{
+  margin-top:.75rem;font-size:1.1rem;color:#a08070;
+  font-style:italic;letter-spacing:.06em;
+}
+.scene-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.25rem;width:100%;max-width:900px;position:relative;z-index:1;
+}
+.scene-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:1.5rem 1rem;
+  cursor:pointer;text-align:center;
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease,background .3s ease;
+  position:relative;overflow:hidden;
+}
+.scene-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--card-a,.2),var(--card-b,.1));
+  opacity:0;transition:opacity .3s ease;
+}
+.scene-card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 30px var(--card-glow,rgba(255,200,180,.15));
+  border-color:rgba(255,255,255,.2);
+}
+.scene-card:hover::before{opacity:1}
+.scene-flag{font-size:2.4rem;display:block;margin-bottom:.5rem;line-height:1}
+.scene-name{
+  font-family:'Cinzel',serif;font-size:.85rem;font-weight:600;
+  color:#e8d5c0;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;
+}
+.scene-desc{font-size:.82rem;color:#907060;font-style:italic;line-height:1.4}
+.scene-flowers{
+  display:flex;justify-content:center;gap:4px;margin-top:.75rem;
+  font-size:1rem;
+}
+
+/* ─── BOOK SCREEN ───────────────────────────────────────── */
+#book-screen{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#0d0a0f 0%,#1a0f1e 50%,#0d100f 100%);
+  overflow:hidden;
+}
+#book-screen::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(var(--bg-rgb,180,120,100),.12) 0%,transparent 70%);
+  transition:background .8s ease;pointer-events:none;
+}
+
+/* ─── PARTICLES ─────────────────────────────────────────── */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.particle{
+  position:absolute;top:-20px;
+  width:8px;height:8px;border-radius:50%;
+  animation:fall linear forwards;
+  opacity:.8;
+}
+@keyframes fall{
+  0%{transform:translateY(0) rotate(0deg) translateX(0);opacity:.9}
+  25%{transform:translateY(25vh) rotate(90deg) translateX(20px)}
+  50%{transform:translateY(50vh) rotate(180deg) translateX(-15px)}
+  75%{transform:translateY(75vh) rotate(270deg) translateX(25px)}
+  100%{transform:translateY(105vh) rotate(360deg) translateX(-10px);opacity:0}
+}
+
+/* ─── BACK BUTTON ───────────────────────────────────────── */
+#back-btn{
+  position:fixed;top:1.25rem;left:1.25rem;z-index:20;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  color:#e8d5c0;font-family:'Cinzel',serif;font-size:.75rem;
+  letter-spacing:.1em;padding:.5rem 1rem;border-radius:8px;cursor:pointer;
+  transition:all .3s ease;backdrop-filter:blur(8px);
+}
+#back-btn:hover{background:rgba(255,255,255,.15);transform:translateY(-1px)}
+
+/* ─── BOOK WRAPPER (perspective container) ───────────────── */
+#book-wrapper{
+  perspective:2000px;
+  perspective-origin:50% 40%;
+  position:relative;
+}
+#book{
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .5s ease;
+  cursor:pointer;
+}
+
+/* ─── BOOK FACES ─────────────────────────────────────────── */
+/* Closed book: a thick rectangle */
+.book-closed{
+  position:relative;
+  width:260px;height:340px;
+  transform-style:preserve-3d;
+  transition:all 1.5s cubic-bezier(.645,.045,.355,1);
+}
+
+/* Front cover – the flipping page */
+#front-cover{
+  position:absolute;inset:0;
+  background:var(--cover-bg,linear-gradient(135deg,#8b1a2a,#5a0e1a));
+  border-radius:4px 12px 12px 4px;
+  transform-origin:left center;
+  transform:rotateY(0deg);
+  transition:transform 1.5s cubic-bezier(.645,.045,.355,1);
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  box-shadow:4px 0 20px rgba(0,0,0,.6),inset -3px 0 8px rgba(0,0,0,.3);
+  z-index:10;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+#front-cover::before{
+  content:'';position:absolute;inset:12px;
+  border:1px solid rgba(255,255,255,.2);border-radius:4px;
+  pointer-events:none;
+}
+#front-cover::after{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:16px;
+  background:rgba(0,0,0,.3);
+  border-right:1px solid rgba(255,255,255,.05);
+}
+.cover-inner{
+  text-align:center;padding:2rem;position:relative;z-index:2;
+}
+.cover-title{
+  font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:400;
+  font-style:italic;color:rgba(255,240,220,.95);
+  text-shadow:0 2px 12px rgba(0,0,0,.5);
+  margin-bottom:.5rem;line-height:1.3;
+}
+.cover-heart{font-size:2rem;display:block;margin:.5rem 0;animation:heartbeat 2s ease-in-out infinite}
+@keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.cover-hint{
+  font-size:.75rem;color:rgba(255,220,200,.6);font-style:italic;
+  margin-top:1rem;letter-spacing:.08em;animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:.5}50%{opacity:1}}
+.cover-ornament{font-size:1.2rem;color:rgba(255,220,200,.4);margin:.25rem 0}
+.cover-decor{
+  position:absolute;inset:0;
+  background:var(--cover-pattern,none);
+  opacity:.15;pointer-events:none;
+}
+
+/* Back of front cover (inside front-cover, shown when flipped) */
+#front-cover-back{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#f5ede0,#ede0cc);
+  border-radius:4px 12px 12px 4px;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  transform:rotateY(180deg);
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+#front-cover-back::after{
+  content:'❧';font-size:3rem;color:rgba(100,50,30,.15);
+}
+
+/* Book spine / base */
+#book-base{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,var(--spine-top,#6a1020),var(--spine-bot,#3a0810));
+  border-radius:4px 12px 12px 4px;
+  box-shadow:0 8px 40px rgba(0,0,0,.7),0 2px 8px rgba(0,0,0,.5);
+  z-index:1;
+}
+/* Book page stack effect */
+#book-base::before{
+  content:'';position:absolute;
+  right:-4px;top:4px;bottom:4px;width:6px;
+  background:linear-gradient(90deg,#e8d8c0,#d5c4a8);
+  border-radius:0 4px 4px 0;
+  box-shadow:2px 0 6px rgba(0,0,0,.3);
+}
+
+/* ─── OPEN STATE ─────────────────────────────────────────── */
+#book.is-open #front-cover{
+  transform:rotateY(-170deg);
+  box-shadow:-4px 0 20px rgba(0,0,0,.6);
+}
+#book.is-open{cursor:default}
+
+/* The spread (left+right pages) */
+#book-spread{
+  position:absolute;inset:0;
+  display:flex;
+  opacity:0;transition:opacity .5s ease .8s;
+  pointer-events:none;
+}
+#book.is-open #book-spread{opacity:1;pointer-events:all}
+
+.page{
+  flex:1;height:100%;
+  background:linear-gradient(180deg,#fdf6ec,#f5e8d0);
+  position:relative;overflow:hidden;
+}
+#left-page{
+  border-right:1px solid rgba(120,80,40,.2);
+  border-radius:4px 0 0 4px;
+  background:linear-gradient(135deg,#fdf8f0 0%,#f5ecdc 100%);
+}
+#right-page{
+  border-radius:0 4px 4px 4px;
+  background:linear-gradient(225deg,#fdf8f0 0%,#f0e4cc 100%);
+  padding:1.5rem 1.25rem;
+  overflow-y:auto;
+}
+#right-page::-webkit-scrollbar{width:3px}
+#right-page::-webkit-scrollbar-thumb{background:rgba(120,80,40,.3);border-radius:2px}
+
+/* ─── POP-UP SCENE ───────────────────────────────────────── */
+#popup-scene{
+  position:absolute;inset:0;
+  transform-style:preserve-3d;
+  perspective:800px;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:8px;
+  transition:transform .6s ease;
+}
+#scene-stage{
+  position:relative;
+  width:220px;height:280px;
+  transform-style:preserve-3d;
+  transform:rotateX(20deg);
+  transition:transform 1s cubic-bezier(.4,0,.2,1);
+}
+#book.is-open #scene-stage{transform:rotateX(20deg)}
+
+/* cinematic orbit */
+@keyframes orbit{
+  0%{transform:rotateX(20deg) rotateY(0deg)}
+  25%{transform:rotateX(25deg) rotateY(-35deg)}
+  55%{transform:rotateX(18deg) rotateY(35deg)}
+  80%{transform:rotateX(22deg) rotateY(10deg)}
+  100%{transform:rotateX(20deg) rotateY(0deg)}
+}
+#scene-stage.orbiting{
+  animation:orbit 4s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+/* Ground */
+.scene-ground{
+  position:absolute;bottom:0;left:50%;
+  transform:translateX(-50%) rotateX(90deg);
+  transform-origin:bottom center;
+  width:200px;height:120px;
+  background:radial-gradient(ellipse 80% 60% at 50% 100%,var(--ground-a,#4a7a30),var(--ground-b,#2a4a1a));
+  border-radius:50%;opacity:.7;
+}
+
+/* ─── POP-UP ELEMENTS ────────────────────────────────────── */
+.popup-el{
+  position:absolute;
+  transform-origin:bottom center;
+  transform:rotateX(85deg) scaleY(.05);
+  transition:transform 1.2s cubic-bezier(.34,1.56,.64,1);
+  transition-delay:var(--d,0.5s);
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+}
+#book.is-open .popup-el{transform:rotateX(0deg) scaleY(1)}
+
+/* ─── PAVILION CONTAINERS ────────────────────────────────── */
+#pavilion{
+  position:absolute;bottom:30px;left:50%;
+  transform-origin:bottom center;
+  transform:translateX(-50%);
+  width:160px;height:160px;
+  display:flex;align-items:flex-end;justify-content:center;
+  --d:.55s;
+}
+
+/* ─── FLOWER SYSTEM ──────────────────────────────────────── */
+.flower{
+  position:absolute;
+  transform-style:preserve-3d;
+}
+.flower-stem{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:2px;background:var(--stem,#3a6a20);
+  border-radius:1px;
+  transform-origin:bottom center;
+}
+.flower-head{
+  position:absolute;bottom:100%;left:50%;
+  transform:translateX(-50%);
+  width:28px;height:28px;
+}
+.petal{
+  position:absolute;
+  width:10px;height:16px;
+  border-radius:50%;
+  top:50%;left:50%;
+  transform-origin:50% 100%;
+  margin:-8px 0 0 -5px;
+  background:var(--petal-col,#ffb7c5);
+  opacity:.9;
+}
+.flower-center{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:8px;height:8px;border-radius:50%;
+  background:var(--center-col,#ffdd00);
+  z-index:2;
+}
+@keyframes bloom{
+  0%{transform:translateX(-50%) scale(0) rotate(-30deg);opacity:0}
+  60%{transform:translateX(-50%) scale(1.15);opacity:1}
+  100%{transform:translateX(-50%) scale(1)}
+}
+@keyframes sway{
+  0%,100%{transform:rotateZ(-3deg)}
+  50%{transform:rotateZ(3deg)}
+}
+.flower:hover{cursor:pointer}
+.flower:hover .flower-head{animation:sway 1s ease-in-out infinite}
+.flower.bloomed .flower-head{
+  animation:bloom .8s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+
+/* ─── HEART BURST ────────────────────────────────────────── */
+.heart-burst{
+  position:absolute;pointer-events:none;z-index:50;
+  font-size:1rem;animation:burst .8s ease-out forwards;
+}
+@keyframes burst{
+  0%{transform:translate(-50%,-50%) scale(0);opacity:1}
+  60%{transform:translate(-50%,-120%) scale(1.3);opacity:.9}
+  100%{transform:translate(var(--bx,-20px),var(--by,-80px)) scale(.5);opacity:0}
+}
+
+/* ─── LOVE LETTER ────────────────────────────────────────── */
+.letter-salutation{
+  font-family:'Playfair Display',serif;font-size:1.15rem;font-style:italic;
+  color:#4a2a1a;margin-bottom:.75rem;
+}
+.letter-body{
+  font-size:.9rem;line-height:1.8;color:#3a2010;
+  font-family:'EB Garamond',serif;
+}
+.letter-body p{margin-bottom:.75rem}
+.letter-placeholder{
+  color:#a08060;font-style:italic;
+  border:1px dashed rgba(160,120,80,.3);
+  border-radius:4px;padding:.5rem .75rem;margin:.5rem 0;
+  font-size:.82rem;
+}
+.letter-signature{
+  margin-top:1rem;text-align:right;
+  font-family:'Playfair Display',serif;font-style:italic;
+  color:#4a2a1a;font-size:1rem;line-height:1.6;
+}
+.letter-divider{
+  text-align:center;color:#c09070;margin:.5rem 0;font-size:.9rem;letter-spacing:.2em;
+}
+.letter-date{
+  font-size:.75rem;color:#a08060;text-align:center;
+  margin-bottom:.75rem;font-style:italic;letter-spacing:.05em;
+}
+
+/* ─── SCENE-SPECIFIC PAVILION STYLES ─────────────────────── */
+/* ── Japan: Torii Gate ── */
+.pavilion-japan{position:relative;width:140px;height:140px}
+.torii-pillar{
+  position:absolute;bottom:0;width:12px;
+  background:linear-gradient(180deg,#c0392b,#922b21);
+  border-radius:4px 4px 2px 2px;
+}
+.torii-pillar-l{left:20px}
+.torii-pillar-r{right:20px}
+.torii-kasagi{
+  position:absolute;height:14px;
+  background:linear-gradient(180deg,#c0392b,#922b21);
+  left:-5px;right:-5px;
+  border-radius:4px;
+  box-shadow:0 -3px 0 #e74c3c,0 3px 6px rgba(0,0,0,.3);
+}
+.torii-kasagi::before{
+  content:'';position:absolute;top:-6px;left:-4px;right:-4px;height:8px;
+  background:#e74c3c;border-radius:40% 40% 0 0;
+}
+.torii-nuki{
+  position:absolute;height:9px;left:10px;right:10px;
+  background:linear-gradient(180deg,#c0392b,#a93226);
+  border-radius:2px;
+}
+
+/* ── Korea: Jeongja Pavilion ── */
+.pavilion-korea{position:relative;width:140px;height:140px}
+.korea-column{
+  position:absolute;bottom:0;width:8px;
+  background:linear-gradient(180deg,#8b6914,#5a4010);
+  border-radius:2px;
+}
+.korea-roof{
+  position:absolute;
+  background:linear-gradient(180deg,#1a4a1a,#2d7a2d);
+}
+.korea-roof-main{
+  left:-10px;right:-10px;
+  clip-path:polygon(15% 100%,50% 0%,85% 100%);
+}
+.korea-roof-lower{
+  left:-18px;right:-18px;
+  clip-path:polygon(8% 100%,50% 5%,92% 100%);
+  opacity:.85;
+}
+.korea-eave{
+  position:absolute;height:6px;
+  background:#1a4a1a;border-radius:0 0 40% 40%;
+  box-shadow:0 3px 8px rgba(0,0,0,.3);
+}
+
+/* ── China: Pagoda ── */
+.pavilion-china{position:relative;width:120px;height:150px}
+.pagoda-tier{
+  position:absolute;left:50%;transform:translateX(-50%);
+  background:linear-gradient(180deg,#8b0000,#600000);
+}
+.pagoda-eave{
+  position:absolute;left:50%;transform:translateX(-50%);
+  height:8px;
+  background:linear-gradient(180deg,#c0392b,#8b0000);
+  border-radius:0 0 30% 30%;
+  box-shadow:0 4px 8px rgba(0,0,0,.3);
+}
+.pagoda-roof-tip{
+  position:absolute;left:50%;transform:translateX(-50%);
+  width:4px;
+  background:linear-gradient(180deg,#d4a017,#8b6914);
+  border-radius:2px 2px 0 0;
+}
+
+/* ── Western: Gazebo ── */
+.pavilion-western{position:relative;width:140px;height:140px}
+.gazebo-column{
+  position:absolute;bottom:0;width:7px;
+  background:linear-gradient(180deg,#f0ece4,#d4c8b0);
+  border-radius:3px 3px 1px 1px;
+  box-shadow:inset -2px 0 4px rgba(0,0,0,.1);
+}
+.gazebo-roof{
+  position:absolute;
+  background:linear-gradient(180deg,#5a8a5a,#3a6a3a);
+  clip-path:polygon(50% 0%,100% 100%,0% 100%);
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));
+}
+.gazebo-trim{
+  position:absolute;
+  background:#8aaa8a;
+  height:5px;border-radius:2px;
+}
+
+/* ── India: Mughal Arch ── */
+.pavilion-india{position:relative;width:140px;height:150px}
+.mughal-pillar{
+  position:absolute;bottom:0;width:14px;
+  background:linear-gradient(180deg,#f5deb3,#d4a853);
+  border-radius:6px 6px 2px 2px;
+  box-shadow:inset -3px 0 6px rgba(0,0,0,.15);
+}
+.mughal-arch{
+  position:absolute;left:50%;transform:translateX(-50%);
+  border-left:14px solid transparent;
+  border-right:14px solid transparent;
+}
+.mughal-dome{
+  position:absolute;left:50%;transform:translateX(-50%);
+  background:linear-gradient(180deg,#f5f0e8,#d4c8a0);
+  border-radius:50% 50% 0 0;
+  box-shadow:0 -4px 12px rgba(0,0,0,.2);
+}
+.mughal-finial{
+  position:absolute;left:50%;transform:translateX(-50%);
+  background:linear-gradient(180deg,#d4a017,#8b6914);
+  border-radius:50% 50% 10% 10%;
+}
+
+/* ── Morocco: Moorish ── */
+.pavilion-morocco{position:relative;width:140px;height:140px}
+.moorish-arch{
+  position:absolute;
+  border-left:var(--arch-w,12px) solid transparent;
+  border-right:var(--arch-w,12px) solid transparent;
+  border-bottom:var(--arch-h,60px) solid var(--arch-col,#1a4a8a);
+}
+.moorish-arch::before{
+  content:'';position:absolute;
+  top:var(--arch-h,60px);left:calc(-1*var(--arch-w,12px));
+  width:calc(var(--arch-w,12px)*2);
+  height:var(--arch-extra,40px);
+  background:var(--arch-col,#1a4a8a);
+}
+.moorish-top{
+  position:absolute;
+  background:repeating-linear-gradient(
+    45deg,#1a4a8a 0,#1a4a8a 4px,#2a6ab0 4px,#2a6ab0 8px
+  );
+}
+
+/* ── Greece: Columns ── */
+.pavilion-greece{position:relative;width:150px;height:140px}
+.greek-column{
+  position:absolute;bottom:0;
+  background:linear-gradient(180deg,#f5f0e8,#e0d8c8);
+  border-radius:3px 3px 1px 1px;
+  box-shadow:inset -3px 0 8px rgba(0,0,0,.08),2px 0 4px rgba(0,0,0,.1);
+}
+.greek-capital{
+  position:absolute;bottom:100%;left:50%;transform:translateX(-50%);
+  height:10px;
+  background:linear-gradient(180deg,#e8e0d0,#d4ccc0);
+  border-radius:3px;
+}
+.greek-entablature{
+  position:absolute;top:0;left:-8px;right:-8px;
+  background:linear-gradient(180deg,#f0ece4,#e0d8c8);
+  border-radius:2px;
+  box-shadow:0 -2px 8px rgba(0,0,0,.15);
+}
+.greek-pediment{
+  position:absolute;
+  background:linear-gradient(180deg,#f0ece4,#e0d8c8);
+  clip-path:polygon(50% 0%,100% 100%,0% 100%);
+}
+
+/* ── Bali: Temple Gate ── */
+.pavilion-bali{position:relative;width:140px;height:160px}
+.bali-tower{
+  position:absolute;bottom:0;
+  background:linear-gradient(180deg,#5a4a3a,#3a2a1a);
+  border-radius:4px 4px 2px 2px;
+}
+.bali-tier{
+  position:absolute;left:50%;transform:translateX(-50%);
+  background:linear-gradient(180deg,#6a5a4a,#4a3a2a);
+  border-radius:3px;
+}
+.bali-roof{
+  position:absolute;left:50%;transform:translateX(-50%);
+  background:linear-gradient(180deg,#4a3a2a,#2a1a0a);
+  clip-path:polygon(20% 100%,50% 0%,80% 100%);
+}
+.bali-lotus{
+  position:absolute;left:50%;transform:translateX(-50%);
+  width:16px;height:16px;
+  background:radial-gradient(circle,#ffd700,#ff8c00);
+  border-radius:50%;
+  box-shadow:0 0 8px rgba(255,200,0,.6);
+}
+.bali-gap{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.6);
+  border-radius:2px;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media(max-width:600px){
+  .book-closed{width:200px;height:260px}
+  #scene-stage{width:170px;height:220px;transform:rotateX(15deg)}
+  .selector-title{font-size:1.8rem}
+  .scene-grid{grid-template-columns:repeat(2,1fr);gap:.75rem}
+  #right-page{padding:1rem .75rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── SCENE SELECTOR ─── -->
+<section id="selector" class="screen">
+  <header class="selector-header">
+    <h1 class="selector-title">For <span>My Love</span> ♡</h1>
+    <p class="selector-sub">Choose where our story begins…</p>
+  </header>
+  <div class="scene-grid" id="scene-grid"></div>
+</section>
+
+<!-- ─── BOOK SCREEN ─── -->
+<section id="book-screen" class="screen hidden">
+  <button id="back-btn">← Change Scene</button>
+  <div id="particles"></div>
+
+  <div id="book-wrapper">
+    <div class="book-closed" id="book">
+      <div id="book-base"></div>
+
+      <div id="front-cover">
+        <div class="cover-decor" id="cover-decor"></div>
+        <div class="cover-inner">
+          <div class="cover-ornament">✦ ✦ ✦</div>
+          <h2 class="cover-title">For My Love</h2>
+          <span class="cover-heart">♡</span>
+          <div class="cover-ornament">— ❧ —</div>
+          <p class="cover-hint">tap to open</p>
+        </div>
+        <div id="front-cover-back"></div>
+      </div>
+
+      <div id="book-spread">
+        <!-- Left page: pop-up scene -->
+        <div class="page" id="left-page">
+          <div id="popup-scene">
+            <div id="scene-stage">
+              <div class="scene-ground" id="scene-ground"></div>
+              <div id="pavilion" class="popup-el"></div>
+              <div id="flower-container"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Right page: letter -->
+        <div class="page" id="right-page">
+          <p class="letter-date" id="letter-date"></p>
+          <p class="letter-salutation">My Love,</p>
+          <div class="letter-body">
+            <p>Every moment with you feels like stepping inside the most beautiful place on earth — and yet, no garden, no pavilion, no landscape in all the world compares to the world you have made inside my heart.</p>
+            <div class="letter-divider">— ❧ —</div>
+            <p>You are my favourite story, the quietest kind of joy, and the reason I still believe in all things beautiful.</p>
+            <div class="letter-placeholder">
+              ✏️ <em>Replace this section with your own words…</em>
+            </div>
+            <p>In every country, every season, every life — I would find you. I would choose you again.</p>
+          </div>
+          <div class="letter-signature">
+            Forever &amp; always,<br>
+            <strong>Ivan</strong> ♡
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ──────────────────────────────────────────────────────────
+   SCENE DATA
+────────────────────────────────────────────────────────── */
+const SCENES = {
+  japan:{
+    label:'Japan',flag:'🇯🇵',
+    desc:'Torii gate · Cherry blossoms',
+    flowers:'🌸🌸🌸',
+    colors:{primary:'#c0392b',accent:'#f8c8d4',bg:'#fff0f5',
+            spine:'#8b1a2a',spineBot:'#4a0a14',bgRgb:'200,120,140',
+            ground:'#3d6b2a',groundB:'#2a4a1a',text:'#4a1a2c'},
+    cardA:'rgba(180,60,80,.3)',cardB:'rgba(100,20,40,.2)',cardGlow:'rgba(255,150,170,.2)',
+    petalColor:'#ffb7c5',petalShape:'round',
+    pavilionFn:'buildTorii',
+    flowerDefs:[
+      {type:'sakura',x:20,y:80,z:20,size:1.0,col:'#ffb7c5',delay:.7},
+      {type:'sakura',x:140,y:85,z:10,size:.8,col:'#ff9cb0',delay:.85},
+      {type:'sakura',x:80,y:100,z:30,size:1.2,col:'#ffc8d4',delay:1.0},
+      {type:'sakura',x:45,y:90,z:5,size:.7,col:'#ffb0c0',delay:.75},
+      {type:'sakura',x:120,y:78,z:25,size:.9,col:'#ffa8bc',delay:.9},
+    ],
+    particleEmoji:null,
+  },
+  korea:{
+    label:'Korea',flag:'🇰🇷',
+    desc:'Jeongja pavilion · Peach blossoms',
+    flowers:'🌸🏮🌿',
+    colors:{primary:'#2c4a1e',accent:'#f0d4a0',bg:'#fffff0',
+            spine:'#1a3010',spineBot:'#0a1a08',bgRgb:'140,160,100',
+            ground:'#3a6020',groundB:'#1a3810',text:'#1a2a10'},
+    cardA:'rgba(60,100,40,.3)',cardB:'rgba(30,60,20,.2)',cardGlow:'rgba(140,200,100,.2)',
+    petalColor:'#f5c8a0',petalShape:'round',
+    pavilionFn:'buildKorea',
+    flowerDefs:[
+      {type:'peach',x:22,y:82,z:18,size:1.0,col:'#f5b8a0',delay:.7},
+      {type:'peach',x:138,y:86,z:12,size:.85,col:'#f0a890',delay:.85},
+      {type:'peach',x:78,y:98,z:28,size:1.1,col:'#f5c0a8',delay:1.0},
+      {type:'leaf',x:50,y:100,z:8,size:.9,col:'#4a8030',delay:.75},
+      {type:'peach',x:110,y:80,z:22,size:.75,col:'#f0b098',delay:.9},
+    ],
+    particleEmoji:null,
+  },
+  china:{
+    label:'China',flag:'🇨🇳',
+    desc:'Pagoda · Lotus blossoms',
+    flowers:'🏮🌺🍃',
+    colors:{primary:'#8b0000',accent:'#ffd700',bg:'#fffaf0',
+            spine:'#600000',spineBot:'#300000',bgRgb:'180,100,80',
+            ground:'#2a5a1a',groundB:'#1a3a0a',text:'#3a1a0a'},
+    cardA:'rgba(140,0,0,.3)',cardB:'rgba(80,0,0,.2)',cardGlow:'rgba(255,180,60,.2)',
+    petalColor:'#ff8080',petalShape:'round',
+    pavilionFn:'buildPagoda',
+    flowerDefs:[
+      {type:'lotus',x:25,y:84,z:20,size:1.0,col:'#ff8080',delay:.7},
+      {type:'lotus',x:135,y:88,z:14,size:.9,col:'#ff6060',delay:.85},
+      {type:'plum',x:75,y:102,z:32,size:1.2,col:'#d070c0',delay:1.0},
+      {type:'lotus',x:48,y:92,z:6,size:.75,col:'#ff9090',delay:.8},
+      {type:'plum',x:115,y:82,z:24,size:.85,col:'#c060b0',delay:.95},
+    ],
+    particleEmoji:null,
+  },
+  europe:{
+    label:'Western Europe',flag:'🇬🇧',
+    desc:'Garden gazebo · Roses & lavender',
+    flowers:'🌹🌷💜',
+    colors:{primary:'#2a5a2a',accent:'#f0e8f0',bg:'#f8fff8',
+            spine:'#1a3a1a',spineBot:'#0a1a0a',bgRgb:'100,140,100',
+            ground:'#2a6020',groundB:'#1a4010',text:'#1a2a1a'},
+    cardA:'rgba(40,90,40,.3)',cardB:'rgba(20,50,20,.2)',cardGlow:'rgba(100,200,100,.2)',
+    petalColor:'#e060a0',petalShape:'round',
+    pavilionFn:'buildGazebo',
+    flowerDefs:[
+      {type:'rose',x:20,y:80,z:18,size:1.1,col:'#e0204a',delay:.7},
+      {type:'tulip',x:140,y:84,z:12,size:1.0,col:'#f05080',delay:.85},
+      {type:'lavender',x:75,y:100,z:30,size:1.0,col:'#9060d0',delay:1.0},
+      {type:'rose',x:48,y:90,z:8,size:.85,col:'#c01840',delay:.8},
+      {type:'tulip',x:112,y:80,z:22,size:.9,col:'#e06080',delay:.95},
+    ],
+    particleEmoji:null,
+  },
+  india:{
+    label:'India',flag:'🇮🇳',
+    desc:'Mughal arch · Marigolds & jasmine',
+    flowers:'🌼🌸🌿',
+    colors:{primary:'#d4a017',accent:'#fff8e0',bg:'#fffbf0',
+            spine:'#8b6800',spineBot:'#4a3400',bgRgb:'200,160,80',
+            ground:'#3a5a18',groundB:'#1a3208',text:'#3a2808'},
+    cardA:'rgba(200,150,20,.3)',cardB:'rgba(120,80,0,.2)',cardGlow:'rgba(255,220,80,.25)',
+    petalColor:'#ffa020',petalShape:'round',
+    pavilionFn:'buildMughal',
+    flowerDefs:[
+      {type:'marigold',x:22,y:82,z:20,size:1.1,col:'#ffa020',delay:.7},
+      {type:'marigold',x:138,y:86,z:14,size:.95,col:'#ff8810',delay:.85},
+      {type:'jasmine',x:78,y:100,z:30,size:1.0,col:'#fffce0',delay:1.0},
+      {type:'marigold',x:50,y:90,z:8,size:.8,col:'#ffb030',delay:.8},
+      {type:'jasmine',x:110,y:82,z:24,size:.9,col:'#fffff0',delay:.95},
+    ],
+    particleEmoji:null,
+  },
+  morocco:{
+    label:'Morocco',flag:'🇲🇦',
+    desc:'Moorish arches · Bougainvillea & roses',
+    flowers:'🌺🌹✨',
+    colors:{primary:'#1a4a8a',accent:'#f0e8d0',bg:'#fffaf5',
+            spine:'#0a2a5a',spineBot:'#051530',bgRgb:'100,120,180',
+            ground:'#8a6a20',groundB:'#5a4010',text:'#2a1808'},
+    cardA:'rgba(20,60,140,.3)',cardB:'rgba(10,30,80,.2)',cardGlow:'rgba(100,140,255,.2)',
+    petalColor:'#e040a0',petalShape:'round',
+    pavilionFn:'buildMoorish',
+    flowerDefs:[
+      {type:'bougainvillea',x:18,y:80,z:20,size:1.1,col:'#e040a0',delay:.7},
+      {type:'rose',x:142,y:84,z:14,size:1.0,col:'#c02040',delay:.85},
+      {type:'bougainvillea',x:78,y:100,z:30,size:1.2,col:'#d030b0',delay:1.0},
+      {type:'bougainvillea',x:45,y:90,z:8,size:.8,col:'#e050a0',delay:.8},
+      {type:'rose',x:115,y:80,z:22,size:.85,col:'#b81838',delay:.95},
+    ],
+    particleEmoji:null,
+  },
+  greece:{
+    label:'Greece',flag:'🇬🇷',
+    desc:'Marble columns · Bougainvillea',
+    flowers:'🏛️🌸🌿',
+    colors:{primary:'#4a7ab0',accent:'#f0f8ff',bg:'#f8fbff',
+            spine:'#2a5a90',spineBot:'#0a2a50',bgRgb:'120,160,200',
+            ground:'#8ab030',groundB:'#5a7810',text:'#1a2838'},
+    cardA:'rgba(60,100,160,.3)',cardB:'rgba(30,60,100,.2)',cardGlow:'rgba(120,180,255,.2)',
+    petalColor:'#9060c0',petalShape:'round',
+    pavilionFn:'buildGreece',
+    flowerDefs:[
+      {type:'bougainvillea',x:20,y:80,z:18,size:1.0,col:'#9060c0',delay:.7},
+      {type:'olive',x:140,y:84,z:12,size:.9,col:'#6a9040',delay:.85},
+      {type:'bougainvillea',x:76,y:100,z:30,size:1.15,col:'#8050b0',delay:1.0},
+      {type:'olive',x:48,y:90,z:8,size:.8,col:'#5a8030',delay:.8},
+      {type:'bougainvillea',x:112,y:80,z:22,size:.85,col:'#a070d0',delay:.95},
+    ],
+    particleEmoji:null,
+  },
+  bali:{
+    label:'Bali',flag:'🇮🇩',
+    desc:'Temple gate · Hibiscus & frangipani',
+    flowers:'🌺🌸🌿',
+    colors:{primary:'#5a3a1a',accent:'#ffd080',bg:'#fffaf0',
+            spine:'#3a2010',spineBot:'#1a0808',bgRgb:'160,120,80',
+            ground:'#2a6020',groundB:'#1a4010',text:'#2a1808'},
+    cardA:'rgba(90,60,20,.3)',cardB:'rgba(50,30,10,.2)',cardGlow:'rgba(255,180,80,.2)',
+    petalColor:'#ff4060',petalShape:'round',
+    pavilionFn:'buildBali',
+    flowerDefs:[
+      {type:'hibiscus',x:20,y:80,z:20,size:1.1,col:'#ff3050',delay:.7},
+      {type:'frangipani',x:140,y:84,z:14,size:1.0,col:'#fffce0',delay:.85},
+      {type:'hibiscus',x:76,y:100,z:30,size:1.2,col:'#e02840',delay:1.0},
+      {type:'frangipani',x:48,y:90,z:8,size:.85,col:'#fff8d0',delay:.8},
+      {type:'hibiscus',x:112,y:80,z:22,size:.9,col:'#ff4060',delay:.95},
+    ],
+    particleEmoji:null,
+  },
+};
+
+/* ──────────────────────────────────────────────────────────
+   PAVILION BUILDERS
+────────────────────────────────────────────────────────── */
+function buildTorii(el,c){
+  el.innerHTML=`
+  <div class="pavilion-japan" style="--d:.55s">
+    <div class="torii-pillar torii-pillar-l" style="height:100px"></div>
+    <div class="torii-pillar torii-pillar-r" style="height:100px"></div>
+    <div class="torii-kasagi" style="top:10px"></div>
+    <div class="torii-nuki" style="top:34px"></div>
+  </div>`;
+}
+function buildKorea(el,c){
+  el.innerHTML=`
+  <div class="pavilion-korea" style="position:relative;width:140px;height:130px">
+    <div class="korea-column" style="left:22px;height:90px"></div>
+    <div class="korea-column" style="left:45px;height:90px"></div>
+    <div class="korea-column" style="right:45px;height:90px"></div>
+    <div class="korea-column" style="right:22px;height:90px"></div>
+    <div class="korea-roof korea-roof-lower" style="bottom:78px;height:30px"></div>
+    <div class="korea-roof korea-roof-main" style="bottom:96px;height:38px"></div>
+    <div class="korea-eave" style="bottom:88px;left:-14px;right:-14px"></div>
+    <div class="korea-eave" style="bottom:70px;left:-20px;right:-20px"></div>
+  </div>`;
+}
+function buildPagoda(el,c){
+  el.innerHTML=`
+  <div class="pavilion-china" style="--d:.55s">
+    <div class="pagoda-tier" style="bottom:0;width:50px;height:20px;border-radius:2px"></div>
+    <div class="pagoda-eave" style="bottom:18px;width:70px"></div>
+    <div class="pagoda-tier" style="bottom:24px;width:40px;height:20px;border-radius:2px"></div>
+    <div class="pagoda-eave" style="bottom:42px;width:58px"></div>
+    <div class="pagoda-tier" style="bottom:48px;width:30px;height:20px;border-radius:2px"></div>
+    <div class="pagoda-eave" style="bottom:66px;width:46px"></div>
+    <div class="pagoda-tier" style="bottom:72px;width:22px;height:18px;border-radius:2px"></div>
+    <div class="pagoda-eave" style="bottom:88px;width:36px"></div>
+    <div class="pagoda-roof-tip" style="bottom:110px;height:28px;width:4px"></div>
+  </div>`;
+}
+function buildGazebo(el,c){
+  const cols=[15,35,55,75,95,115];
+  let html='<div class="pavilion-western" style="position:relative;width:140px;height:130px">';
+  cols.forEach(x=>{ html+=`<div class="gazebo-column" style="left:${x}px;height:90px"></div>`; });
+  html+=`
+    <div class="gazebo-roof" style="bottom:88px;left:0;right:0;height:44px"></div>
+    <div class="gazebo-trim" style="bottom:88px;left:-4px;right:-4px"></div>
+  </div>`;
+  el.innerHTML=html;
+}
+function buildMughal(el,c){
+  el.innerHTML=`
+  <div class="pavilion-india" style="--d:.55s">
+    <div class="mughal-pillar" style="left:20px;height:90px"></div>
+    <div class="mughal-pillar" style="right:20px;height:90px"></div>
+    <div style="position:absolute;bottom:88px;left:26px;right:26px;height:40px;
+      background:linear-gradient(180deg,#f5deb3,#d4a853);
+      border-radius:50% 50% 0 0 / 60% 60% 0 0;
+      border:2px solid #d4a017;"></div>
+    <div class="mughal-dome" style="bottom:126px;width:44px;height:28px"></div>
+    <div class="mughal-finial" style="bottom:152px;width:8px;height:14px"></div>
+  </div>`;
+}
+function buildMoorish(el,c){
+  el.innerHTML=`
+  <div class="pavilion-morocco" style="position:relative;width:140px;height:130px">
+    <div style="position:absolute;bottom:0;left:10px;right:10px;height:40px;
+      background:linear-gradient(180deg,#1a4a8a,#0a2a5a);border-radius:2px"></div>
+    <div style="position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
+      width:100px;height:60px;
+      background:linear-gradient(180deg,#1a4a8a,#0a2a5a);
+      border-radius:50% 50% 0 0 / 40% 40% 0 0;"></div>
+    <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);
+      width:110px;height:16px;
+      background:repeating-linear-gradient(90deg,#1a4a8a 0,#1a4a8a 6px,#2a6ab0 6px,#2a6ab0 12px);
+      border-radius:3px;"></div>
+  </div>`;
+}
+function buildGreece(el,c){
+  const cols=[10,30,50,70,90,110,130];
+  let html='<div class="pavilion-greece">';
+  cols.forEach(x=>{
+    html+=`
+    <div class="greek-column" style="left:${x}px;bottom:0;width:9px;height:88px">
+      <div class="greek-capital" style="width:14px"></div>
+    </div>`;
+  });
+  html+=`
+    <div class="greek-entablature" style="bottom:88px;height:12px"></div>
+    <div class="greek-pediment" style="bottom:98px;left:10px;right:10px;height:30px"></div>
+  </div>`;
+  el.innerHTML=html;
+}
+function buildBali(el,c){
+  el.innerHTML=`
+  <div class="pavilion-bali" style="--d:.55s">
+    <div class="bali-tower" style="left:10px;width:44px;height:110px"></div>
+    <div class="bali-tower" style="right:10px;width:44px;height:110px"></div>
+    <div class="bali-gap" style="bottom:0;left:54px;right:54px;height:60px"></div>
+    <div class="bali-tier" style="bottom:108px;left:4px;width:54px;height:10px"></div>
+    <div class="bali-tier" style="bottom:116px;left:8px;width:46px;height:10px"></div>
+    <div class="bali-tier" style="bottom:108px;right:4px;width:54px;height:10px"></div>
+    <div class="bali-tier" style="bottom:116px;right:8px;width:46px;height:10px"></div>
+    <div class="bali-roof" style="bottom:124px;left:0px;width:66px;height:30px"></div>
+    <div class="bali-roof" style="bottom:124px;right:0px;width:66px;height:30px;transform:translateX(50%) scaleX(-1)"></div>
+    <div class="bali-lotus" style="bottom:152px;left:14px"></div>
+    <div class="bali-lotus" style="bottom:152px;right:14px"></div>
+  </div>`;
+}
+
+/* ──────────────────────────────────────────────────────────
+   FLOWER BUILDER
+────────────────────────────────────────────────────────── */
+const PETAL_COUNTS={sakura:5,peach:5,lotus:8,rose:12,tulip:5,lavender:6,
+  marigold:10,jasmine:5,bougainvillea:5,olive:6,hibiscus:6,frangipani:5,plum:5};
+
+function buildFlower(def){
+  const el=document.createElement('div');
+  el.className='flower popup-el';
+  el.style.cssText=`left:${def.x}px;bottom:${def.y-80}px;--d:${def.delay}s;
+    transform-origin:bottom center;z-index:${Math.round(def.z)};`;
+  const stemH=20+def.z*.6;
+  const sz=def.size;
+  const n=PETAL_COUNTS[def.type]||5;
+  let petals='';
+  for(let i=0;i<n;i++){
+    const angle=(360/n)*i;
+    const hue=Math.random()*20-10;
+    petals+=`<div class="petal" style="
+      transform:rotate(${angle}deg) translateY(-${8*sz}px);
+      width:${9*sz}px;height:${15*sz}px;
+      background:${shiftColor(def.col,hue)};
+      border-radius:${def.type==='rose'?'40% 60% 60% 40%':'50%'};
+      opacity:.9;"></div>`;
+  }
+  el.innerHTML=`
+    <div class="flower-stem" style="height:${stemH}px;--stem:#3a7020"></div>
+    <div class="flower-head" style="width:${26*sz}px;height:${26*sz}px;bottom:${stemH}px">
+      ${petals}
+      <div class="flower-center" style="
+        width:${7*sz}px;height:${7*sz}px;
+        background:${def.type==='lavender'?'#604090':def.type==='rose'?'#ffd700':'#ffd700'};
+      "></div>
+    </div>`;
+  el.addEventListener('click',e=>heartBurst(e,el));
+  return el;
+}
+
+function shiftColor(hex,deg){
+  // simple hex colour return (skip hue shift for performance, just return col)
+  return hex;
+}
+
+/* ──────────────────────────────────────────────────────────
+   HEART BURST
+────────────────────────────────────────────────────────── */
+function heartBurst(e,parent){
+  const hearts=['♡','♥','❤️','💕','💖'];
+  for(let i=0;i<6;i++){
+    const h=document.createElement('div');
+    h.className='heart-burst';
+    h.textContent=hearts[Math.floor(Math.random()*hearts.length)];
+    h.style.cssText=`
+      left:${e.offsetX||14}px;top:${e.offsetY||14}px;
+      --bx:${(Math.random()-0.5)*60}px;--by:${-(30+Math.random()*60)}px;
+      animation-delay:${i*0.08}s;font-size:${.8+Math.random()*.6}rem;
+      color:${['#e0204a','#ff6080','#ffa0b0','#ff80a0'][i%4]};
+    `;
+    parent.appendChild(h);
+    h.addEventListener('animationend',()=>h.remove());
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   PARTICLE SYSTEM
+────────────────────────────────────────────────────────── */
+let particleInterval=null;
+function startParticles(color){
+  stopParticles();
+  const container=document.getElementById('particles');
+  particleInterval=setInterval(()=>{
+    const p=document.createElement('div');
+    p.className='particle';
+    const sz=4+Math.random()*8;
+    p.style.cssText=`
+      left:${Math.random()*100}%;
+      width:${sz}px;height:${sz}px;
+      border-radius:${Math.random()>.5?'50%':'30%'};
+      background:${color};
+      animation-duration:${4+Math.random()*5}s;
+      animation-delay:${Math.random()*1}s;
+    `;
+    container.appendChild(p);
+    p.addEventListener('animationend',()=>p.remove());
+  },350);
+}
+function stopParticles(){
+  if(particleInterval){clearInterval(particleInterval);particleInterval=null;}
+  document.getElementById('particles').innerHTML='';
+}
+
+/* ──────────────────────────────────────────────────────────
+   DRAG-TO-ORBIT
+────────────────────────────────────────────────────────── */
+let dragging=false,dragX=0,orbitY=0,orbitX=20;
+const stage=document.getElementById('scene-stage');
+function onDragStart(e){
+  if(stage.classList.contains('orbiting'))return;
+  dragging=true;
+  dragX=e.clientX||e.touches?.[0]?.clientX||0;
+  e.preventDefault();
+}
+function onDragMove(e){
+  if(!dragging)return;
+  const cx=e.clientX||e.touches?.[0]?.clientX||0;
+  const dx=cx-dragX;
+  dragX=cx;
+  orbitY=Math.max(-50,Math.min(50,orbitY+dx*.4));
+  stage.style.transform=`rotateX(${orbitX}deg) rotateY(${orbitY}deg)`;
+}
+function onDragEnd(){dragging=false;}
+document.addEventListener('mousemove',onDragMove);
+document.addEventListener('mouseup',onDragEnd);
+document.addEventListener('touchmove',onDragMove,{passive:false});
+document.addEventListener('touchend',onDragEnd);
+
+/* ──────────────────────────────────────────────────────────
+   SCENE SELECTOR RENDER
+────────────────────────────────────────────────────────── */
+const grid=document.getElementById('scene-grid');
+Object.entries(SCENES).forEach(([key,s])=>{
+  const card=document.createElement('div');
+  card.className='scene-card';
+  card.style.cssText=`--card-a:${s.cardA};--card-b:${s.cardB};--card-glow:${s.cardGlow}`;
+  card.innerHTML=`
+    <span class="scene-flag">${s.flag}</span>
+    <div class="scene-name">${s.label}</div>
+    <div class="scene-desc">${s.desc}</div>
+    <div class="scene-flowers">${s.flowers}</div>`;
+  card.addEventListener('click',()=>selectScene(key));
+  grid.appendChild(card);
+});
+
+/* ──────────────────────────────────────────────────────────
+   SELECT SCENE + TRANSITION
+────────────────────────────────────────────────────────── */
+let currentScene=null;
+function selectScene(key){
+  currentScene=SCENES[key];
+  const c=currentScene.colors;
+
+  // Apply CSS vars
+  const r=document.documentElement.style;
+  r.setProperty('--cover-bg',`linear-gradient(135deg,${c.primary},${c.spine})`);
+  r.setProperty('--spine-top',c.spine);
+  r.setProperty('--spine-bot',c.spineBot);
+  r.setProperty('--bg-rgb',c.bgRgb);
+  r.setProperty('--ground-a',c.ground);
+  r.setProperty('--ground-b',c.groundB);
+
+  // Build pavilion
+  const pav=document.getElementById('pavilion');
+  pav.innerHTML='';
+  window[currentScene.pavilionFn](pav,c);
+
+  // Build flowers
+  const fc=document.getElementById('flower-container');
+  fc.innerHTML='';
+  currentScene.flowerDefs.forEach(def=>{
+    fc.appendChild(buildFlower(def));
+  });
+
+  // Set letter date
+  document.getElementById('letter-date').textContent=
+    new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+
+  // Reset book state
+  const bookEl=document.getElementById('book');
+  if(bookEl) bookEl.classList.remove('is-open');
+  orbitY=0;
+  stage.style.transform=`rotateX(${orbitX}deg) rotateY(0deg)`;
+
+  // Transition screens
+  document.getElementById('selector').classList.add('hidden');
+  setTimeout(()=>{
+    document.getElementById('book-screen').classList.remove('hidden');
+  },100);
+
+  stopParticles();
+}
+
+/* ──────────────────────────────────────────────────────────
+   BOOK OPEN / CLOSE
+────────────────────────────────────────────────────────── */
+document.getElementById('front-cover').addEventListener('click',()=>{
+  const book=document.getElementById('book');
+  if(!book||book.classList.contains('is-open'))return;
+  book.classList.add('is-open');
+
+  // Start particles after cover opens
+  setTimeout(()=>{
+    if(currentScene) startParticles(currentScene.petalColor);
+  },1200);
+
+  // Cinematic orbit after scene rises
+  setTimeout(()=>{
+    stage.classList.add('orbiting');
+    stage.addEventListener('animationend',()=>{
+      stage.classList.remove('orbiting');
+      stage.style.transform=`rotateX(${orbitX}deg) rotateY(0deg)`;
+    },{once:true});
+  },2200);
+});
+
+/* ──────────────────────────────────────────────────────────
+   BACK BUTTON
+────────────────────────────────────────────────────────── */
+document.getElementById('back-btn').addEventListener('click',()=>{
+  stopParticles();
+  const book=document.querySelector('.book-closed');
+  if(book) book.classList.remove('is-open');
+  document.getElementById('book-screen').classList.add('hidden');
+  setTimeout(()=>{
+    document.getElementById('selector').classList.remove('hidden');
+  },200);
+});
+
+/* Left page drag setup */
+document.getElementById('left-page').addEventListener('mousedown',onDragStart);
+document.getElementById('left-page').addEventListener('touchstart',onDragStart,{passive:false});
+</script>
+</body>
+</html>
