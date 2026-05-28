@@ -78,7 +78,7 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
 #book-screen{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   background:linear-gradient(160deg,#0d0a0f 0%,#1a0f1e 50%,#0d100f 100%);
-  overflow:hidden;
+  overflow:visible; /* allow 500px spread to show fully */
 }
 #book-screen::before{
   content:'';position:absolute;inset:0;
@@ -114,9 +114,10 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
 
 /* ─── BOOK WRAPPER (perspective container) ───────────────── */
 #book-wrapper{
-  perspective:2000px;
+  perspective:2500px;
   perspective-origin:50% 40%;
   position:relative;
+  overflow:visible;
 }
 #book{
   position:relative;
@@ -126,19 +127,34 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
 }
 
 /* ─── BOOK FACES ─────────────────────────────────────────── */
-/* Closed book: a thick rectangle */
+/* Open two-page spread: 500 × 340.  Front cover sits on RIGHT half. */
 .book-closed{
   position:relative;
-  width:260px;height:340px;
+  width:500px;height:340px;
   transform-style:preserve-3d;
-  transition:all 1.5s cubic-bezier(.645,.045,.355,1);
 }
 
-/* Front cover – the flipping page */
-#front-cover{
-  position:absolute;inset:0;
+/* Back-cover overlay — hides the left page while the book is closed */
+#back-cover-overlay{
+  position:absolute;top:0;bottom:0;left:0;width:250px;
   background:var(--cover-bg,linear-gradient(135deg,#8b1a2a,#5a0e1a));
-  border-radius:4px 12px 12px 4px;
+  border-radius:4px 0 0 4px;
+  z-index:9;
+  transition:opacity .6s ease .5s;
+  pointer-events:none;
+}
+#back-cover-overlay::after{
+  content:'❧';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:2.5rem;color:rgba(255,220,200,.12);
+}
+#book.is-open #back-cover-overlay{opacity:0;}
+
+/* Front cover – covers RIGHT half, rotates from left edge (spine) */
+#front-cover{
+  position:absolute;top:0;bottom:0;right:0;width:250px;
+  background:var(--cover-bg,linear-gradient(135deg,#8b1a2a,#5a0e1a));
+  border-radius:0 12px 12px 0;
   transform-origin:left center;
   transform:rotateY(0deg);
   transition:transform 1.5s cubic-bezier(.645,.045,.355,1);
@@ -199,7 +215,7 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
   content:'❧';font-size:3rem;color:rgba(100,50,30,.15);
 }
 
-/* Book spine / base */
+/* Book spine / base — full two-page width */
 #book-base{
   position:absolute;inset:0;
   background:linear-gradient(180deg,var(--spine-top,#6a1020),var(--spine-bot,#3a0810));
@@ -207,7 +223,7 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
   box-shadow:0 8px 40px rgba(0,0,0,.7),0 2px 8px rgba(0,0,0,.5);
   z-index:1;
 }
-/* Book page stack effect */
+/* Page-stack edge on right */
 #book-base::before{
   content:'';position:absolute;
   right:-4px;top:4px;bottom:4px;width:6px;
@@ -223,7 +239,17 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
 }
 #book.is-open{cursor:default}
 
-/* The spread (left+right pages) */
+/* Spine shadow line between pages */
+#book.is-open #book-base::after{
+  content:'';position:absolute;
+  left:50%;top:4px;bottom:4px;width:3px;
+  transform:translateX(-50%);
+  background:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.2));
+  border-radius:2px;
+  z-index:2;
+}
+
+/* The spread — fills the full 500px container */
 #book-spread{
   position:absolute;inset:0;
   display:flex;
@@ -232,6 +258,7 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
 }
 #book.is-open #book-spread{opacity:1;pointer-events:all}
 
+/* Each page is 250px (half of 500px spread) */
 .page{
   flex:1;height:100%;
   background:linear-gradient(180deg,#fdf6ec,#f5e8d0);
@@ -255,14 +282,14 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
 #popup-scene{
   position:absolute;inset:0;
   transform-style:preserve-3d;
-  perspective:800px;
+  perspective:1000px;
   display:flex;align-items:flex-end;justify-content:center;
-  padding-bottom:8px;
-  transition:transform .6s ease;
+  padding-bottom:12px;
 }
+/* stage fits inside 250px left page */
 #scene-stage{
   position:relative;
-  width:220px;height:280px;
+  width:220px;height:270px;
   transform-style:preserve-3d;
   transform:rotateX(20deg);
   transition:transform 1s cubic-bezier(.4,0,.2,1);
@@ -304,10 +331,10 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
 #book.is-open .popup-el{transform:rotateX(0deg) scaleY(1)}
 
 /* ─── PAVILION CONTAINERS ────────────────────────────────── */
+/* left = (220px stage - 160px pavilion) / 2 = 30px  — no translateX so it
+   doesn't conflict with the popup-el rise transform */
 #pavilion{
-  position:absolute;bottom:30px;left:50%;
-  transform-origin:bottom center;
-  transform:translateX(-50%);
+  position:absolute;bottom:28px;left:30px;
   width:160px;height:160px;
   display:flex;align-items:flex-end;justify-content:center;
   --d:.55s;
@@ -598,12 +625,15 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
 }
 
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
-@media(max-width:600px){
-  .book-closed{width:200px;height:260px}
-  #scene-stage{width:170px;height:220px;transform:rotateX(15deg)}
+@media(max-width:540px){
   .selector-title{font-size:1.8rem}
   .scene-grid{grid-template-columns:repeat(2,1fr);gap:.75rem}
-  #right-page{padding:1rem .75rem}
+  /* Scale the entire book wrapper so 500px fits on small screens */
+  #book-wrapper{transform:scale(.62);transform-origin:center center}
+}
+@media(max-width:380px){
+  #book-wrapper{transform:scale(.5);transform-origin:center center}
+  .selector-title{font-size:1.5rem}
 }
 </style>
 </head>
@@ -626,6 +656,7 @@ body{font-family:'EB Garamond',serif;background:#0d0a0f;color:#3a2a1a}
   <div id="book-wrapper">
     <div class="book-closed" id="book">
       <div id="book-base"></div>
+      <div id="back-cover-overlay"></div>
 
       <div id="front-cover">
         <div class="cover-decor" id="cover-decor"></div>
