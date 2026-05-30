@@ -134,7 +134,7 @@ html {
   line-height: var(--lh-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* smooth scroll handled by ScrollSmoother */
 }
 
 ::selection { background: var(--accent-0); color: var(--fg-0); }
@@ -202,8 +202,7 @@ html {
 
 /* ===== NAV ===== */
 .io-nav {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 50;
   height: var(--nav-height);
   display: flex;
@@ -895,6 +894,130 @@ a.io-contact-meta__value:hover { color: var(--accent-1); }
 .io-footer__rail a:hover { color: var(--fg-0); border-color: var(--line-2); }
 .io-footer__rail i { width: 16px; height: 16px; }
 .io-footer__colophon { display: flex; gap: 6px; align-items: center; color: var(--fg-2); font-size: 12px; font-family: var(--font-mono); }
+
+/* ===== SCROLL REVEAL — initial states & triggers handled by GSAP / ScrollTrigger ===== */
+
+/* ===== HERO — enhanced glow ===== */
+.io-hero__glow {
+  background:
+    radial-gradient(ellipse at 18% 0%, rgba(153, 27, 27, 0.24), transparent 52%),
+    radial-gradient(ellipse at 80% 30%, rgba(153, 27, 27, 0.07), transparent 50%);
+  animation: io-glow-breathe 9s ease-in-out infinite;
+}
+@keyframes io-glow-breathe {
+  0%, 100% { opacity: 0.75; }
+  50%       { opacity: 1; }
+}
+
+/* ===== NAV — scrolled state ===== */
+.io-nav.is-scrolled {
+  border-bottom-color: var(--line-2);
+  box-shadow: 0 1px 0 var(--line-1);
+}
+
+/* ===== VALUE STRIP ===== */
+.io-value-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line-1);
+  border-top: 1px solid var(--line-1);
+  border-bottom: 1px solid var(--line-1);
+}
+.io-value-item {
+  background: var(--bg-0);
+  padding: var(--space-10) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: background var(--dur-2) var(--ease-out);
+}
+.io-value-item:hover { background: var(--bg-1); }
+.io-value-item__icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: var(--accent-tint);
+  border: 1px solid var(--accent-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent-1);
+  margin-bottom: var(--space-2);
+  flex-shrink: 0;
+}
+.io-value-item__icon i { width: 18px; height: 18px; }
+.io-value-item__title {
+  font-size: 15px;
+  font-weight: var(--fw-semi);
+  color: var(--fg-0);
+  line-height: 1.3;
+  margin: 0;
+}
+.io-value-item__body {
+  font-size: 13px;
+  color: var(--fg-1);
+  line-height: 1.65;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .io-value-strip { grid-template-columns: 1fr; }
+}
+
+/* ===== METRICS — accent top bar on hover ===== */
+.io-metric {
+  border-top: 2px solid transparent;
+  transition:
+    border-color var(--dur-2) var(--ease-out),
+    border-top-color var(--dur-2) var(--ease-out);
+}
+.io-metric:hover { border-top-color: var(--accent-1); }
+
+/* ===== SECTION TITLE — slightly tighter tracking ===== */
+.io-section__title { letter-spacing: -0.02em; }
+
+/* ===== CASE STUDY CARDS — key metric highlight ===== */
+.io-case__metric {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line-1);
+}
+.io-case__metric-num {
+  font-family: var(--font-mono);
+  font-size: 34px;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  color: var(--fg-0);
+  letter-spacing: -0.03em;
+}
+.io-case__metric-label {
+  font-size: 12px;
+  color: var(--fg-1);
+  line-height: 1.4;
+  max-width: 18ch;
+}
+
+/* ===== SKILLS — strong column accent ===== */
+.io-skills__col--strong .io-skill {
+  border-color: rgba(153, 27, 27, 0.18);
+}
+.io-skills__col--strong .io-skill__icon {
+  background: var(--accent-tint);
+  color: var(--accent-1);
+}
+
+/* ===== FOOTER — gradient divider ===== */
+.io-footer {
+  position: relative;
+  border-top: none;
+}
+.io-footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-2) 30%, var(--line-2) 70%, transparent);
+}
 
 /* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {

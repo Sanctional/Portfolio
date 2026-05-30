@@ -11,6 +11,8 @@
 </head>
 <body>
 
+  <div id="smooth-wrapper">
+
   <!-- ===== NAV ===== -->
   <nav class="io-nav" id="top-nav">
     <a href="#top" class="io-nav__brand">
@@ -36,6 +38,7 @@
     </button>
   </nav>
 
+  <div id="smooth-content">
   <main>
 
     <!-- ===== HERO ===== -->
@@ -50,7 +53,7 @@
           <div class="io-hero__copy">
             <div class="io-hero__eyebrow">
               <span class="io-hairline"></span>
-              <span class="io-eyebrow io-eyebrow--accent">Operations · Analytics · Engineering</span>
+              <span class="io-eyebrow io-eyebrow--accent">Operations · Data · Analytics</span>
             </div>
 
             <h1 class="io-hero__title">
@@ -166,6 +169,26 @@
     </section><!-- /#top / hero -->
 
 
+    <!-- ===== VALUE STRIP ===== -->
+    <div class="io-value-strip" aria-hidden="false">
+      <div class="io-value-item io-reveal">
+        <div class="io-value-item__icon"><i data-lucide="file-bar-chart-2"></i></div>
+        <p class="io-value-item__title">Operational Reporting</p>
+        <p class="io-value-item__body">I build reporting workflows that turn raw operational records into decision-ready summaries — structured in Excel and Google Sheets.</p>
+      </div>
+      <div class="io-value-item io-reveal io-reveal--delay-2">
+        <div class="io-value-item__icon"><i data-lucide="calendar-check-2"></i></div>
+        <p class="io-value-item__title">Scheduling &amp; Coordination</p>
+        <p class="io-value-item__body">I coordinate complex programme operations — audit scheduling, manpower planning, compliance tracking across rotating teams.</p>
+      </div>
+      <div class="io-value-item io-reveal io-reveal--delay-4">
+        <div class="io-value-item__icon"><i data-lucide="git-merge"></i></div>
+        <p class="io-value-item__title">Process Improvement</p>
+        <p class="io-value-item__body">I find what's broken in data workflows and fix it — standardising inputs, reducing error rates, cutting manual processing time.</p>
+      </div>
+    </div>
+
+
     <!-- ===== METRICS — 01 / BY THE NUMBERS ===== -->
     <section id="metrics" class="io-section io-section--alt">
       <div class="io-container">
@@ -180,7 +203,7 @@
 
         <div class="io-metrics-grid">
 
-          <div class="io-metric" data-metric-value="350" data-metric-suffix="+">
+          <div class="io-metric io-reveal" data-metric-value="350" data-metric-suffix="+">
             <div class="io-metric__top">
               <span class="io-metric__index">01</span>
               <span class="io-metric__label">Monthly sessions</span>
@@ -192,7 +215,7 @@
             <div class="io-metric__caption">audits coordinated or supported each month</div>
           </div>
 
-          <div class="io-metric" data-metric-value="1000" data-metric-suffix="+">
+          <div class="io-metric io-reveal io-reveal--delay-1" data-metric-value="1000" data-metric-suffix="+">
             <div class="io-metric__top">
               <span class="io-metric__index">02</span>
               <span class="io-metric__label">Records / month</span>
@@ -204,7 +227,7 @@
             <div class="io-metric__caption">operational records handled per cycle</div>
           </div>
 
-          <div class="io-metric" data-metric-value="20" data-metric-suffix="%">
+          <div class="io-metric io-reveal io-reveal--delay-2" data-metric-value="20" data-metric-suffix="%">
             <div class="io-metric__top">
               <span class="io-metric__index">03</span>
               <span class="io-metric__label">Scheduling</span>
@@ -219,7 +242,7 @@
             <div class="io-metric__caption">estimated improvement in scheduling efficiency</div>
           </div>
 
-          <div class="io-metric" data-metric-value="30" data-metric-suffix="%">
+          <div class="io-metric io-reveal io-reveal--delay-3" data-metric-value="30" data-metric-suffix="%">
             <div class="io-metric__top">
               <span class="io-metric__index">04</span>
               <span class="io-metric__label">Disruptions</span>
@@ -234,7 +257,7 @@
             <div class="io-metric__caption">estimated reduction in session disruptions</div>
           </div>
 
-          <div class="io-metric" data-metric-value="40" data-metric-suffix="%">
+          <div class="io-metric io-reveal io-reveal--delay-4" data-metric-value="40" data-metric-suffix="%">
             <div class="io-metric__top">
               <span class="io-metric__index">05</span>
               <span class="io-metric__label">Manual workload</span>
@@ -326,7 +349,7 @@
         <div class="io-skills--triple">
 
           <!-- Column 1: Strong skills -->
-          <div class="io-skills__col">
+          <div class="io-skills__col io-skills__col--strong">
             <div class="io-skills__heading-row">
               <span class="io-eyebrow io-eyebrow--accent io-skills__heading">Strong</span>
               <span class="io-skills__heading-meta">Daily, production-grade</span>
@@ -377,12 +400,11 @@
                   <div class="io-skill__level">Foundations · Charts · Data Modelling</div>
                 </div>
               </div>
-              <!-- ▼ DATA ENGINEERING CARD — title, badge, and description controlled here -->
               <div class="io-skill io-skill--learning">
-                <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="boxes"></i></div>
+                <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="workflow"></i></div>
                 <div class="io-skill__text">
-                  <div class="io-skill__label">Data Engineering Foundations <span class="io-skill__badge">LEARNING</span></div>
-                  <div class="io-skill__level">ETL/ELT Concepts · Workflow Orchestration · Data Validation</div>
+                  <div class="io-skill__label">Data Pipelines &amp; ETL <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__level">ETL/ELT Concepts · Data Validation · Pipeline Basics</div>
                 </div>
               </div>
             </div>
@@ -426,12 +448,16 @@
         <div class="io-cases">
 
           <!-- Case Study 01 -->
-          <article class="io-case" data-modal="modal-cs-1">
+          <article class="io-case io-reveal" data-modal="modal-cs-1">
             <div class="io-case__eyebrow">
               <span class="io-eyebrow io-eyebrow--accent">01 / CASE STUDY</span>
               <span class="io-mono io-case__tag">· WORKFLOW · SCHEDULING</span>
             </div>
             <h3 class="io-case__title">Auditor Scheduling &amp; Data Integration</h3>
+            <div class="io-case__metric">
+              <span class="io-case__metric-num">20%</span>
+              <span class="io-case__metric-label">scheduling efficiency improvement</span>
+            </div>
             <p class="io-case__blurb">
               A recurring scheduling workflow that supported 350+ monthly audit
               sessions across rotating teams.
@@ -448,12 +474,16 @@
           </article>
 
           <!-- Case Study 02 -->
-          <article class="io-case" data-modal="modal-cs-2">
+          <article class="io-case io-reveal io-reveal--delay-2" data-modal="modal-cs-2">
             <div class="io-case__eyebrow">
               <span class="io-eyebrow io-eyebrow--accent">02 / CASE STUDY</span>
               <span class="io-mono io-case__tag">· COMPLIANCE · REPORTING</span>
             </div>
             <h3 class="io-case__title">Audit Tracking &amp; Compliance Workflow</h3>
+            <div class="io-case__metric">
+              <span class="io-case__metric-num">4h→30m</span>
+              <span class="io-case__metric-label">compliance reporting time</span>
+            </div>
             <p class="io-case__blurb">
               Standardised audit status reporting across multiple teams with weekly
               compliance summaries.
@@ -470,12 +500,16 @@
           </article>
 
           <!-- Case Study 03 -->
-          <article class="io-case" data-modal="modal-cs-3">
+          <article class="io-case io-reveal" data-modal="modal-cs-3">
             <div class="io-case__eyebrow">
               <span class="io-eyebrow io-eyebrow--accent">03 / CASE STUDY</span>
               <span class="io-mono io-case__tag">· PIPELINE · STANDARDISATION</span>
             </div>
             <h3 class="io-case__title">Data Cleaning &amp; Standardisation Workflow</h3>
+            <div class="io-case__metric">
+              <span class="io-case__metric-num">40%</span>
+              <span class="io-case__metric-label">reduction in manual downstream workload</span>
+            </div>
             <p class="io-case__blurb">
               A reusable spreadsheet workflow that normalises messy operational
               inputs into a single schema.
@@ -492,12 +526,16 @@
           </article>
 
           <!-- Case Study 04 -->
-          <article class="io-case" data-modal="modal-cs-4">
+          <article class="io-case io-reveal io-reveal--delay-2" data-modal="modal-cs-4">
             <div class="io-case__eyebrow">
               <span class="io-eyebrow io-eyebrow--accent">04 / CASE STUDY</span>
               <span class="io-mono io-case__tag">· REPORTING · OPERATIONS</span>
             </div>
             <h3 class="io-case__title">Operations Reporting &amp; Tracker Improvements</h3>
+            <div class="io-case__metric">
+              <span class="io-case__metric-num">3→1</span>
+              <span class="io-case__metric-label">views to answer "what changed this week?"</span>
+            </div>
             <p class="io-case__blurb">
               Reworked an operations reporting tracker so leads could answer
               "what changed this week?" at a glance.
@@ -967,8 +1005,15 @@
   </div>
 
 
+  </div><!-- /#smooth-content -->
+  </div><!-- /#smooth-wrapper -->
+
   <!-- Lucide icons CDN — loaded last so DOM is ready -->
   <script src="https://unpkg.com/lucide@0.428.0/dist/umd/lucide.min.js"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollSmoother.min.js"></script>
   <script src="script.js"></script>
 
 </body>
