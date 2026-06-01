@@ -379,6 +379,7 @@ function initModals() {
     lastFocused = triggerEl;
     modal.classList.add("is-open");
     document.body.style.overflow = "hidden";
+    lenis?.stop(); // pause Lenis so its RAF loop can't scroll the background
     if (window.lucide) lucide.createIcons();
     trapCleanups.set(modal, trapFocus(modal));
     modal.querySelector("[data-modal-close]")?.focus();
@@ -389,6 +390,7 @@ function initModals() {
     if (cleanup) { cleanup(); trapCleanups.delete(modal); }
     modal.classList.remove("is-open");
     document.body.style.overflow = "";
+    lenis?.start(); // resume Lenis once the modal is gone
     lastFocused?.focus();
     lastFocused = null;
   }
