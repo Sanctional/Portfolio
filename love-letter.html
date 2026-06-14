@@ -58,6 +58,20 @@ body{font-family:'EB Garamond',serif}
 .scene-desc{font-size:.8rem;color:#907060;font-style:italic;line-height:1.4}
 .scene-flowers{display:flex;justify-content:center;gap:3px;margin-top:.65rem;font-size:.95rem}
 
+/* ── AMBIENT SPARKLES (selector background) ─────── */
+.selector-header,.scene-grid{position:relative;z-index:1}
+#ambient{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.amb-item{
+  position:absolute;opacity:0;color:rgba(240,200,180,.5);
+  animation:ambfloat linear infinite;
+}
+@keyframes ambfloat{
+  0%{opacity:0;transform:translateY(0) scale(.6) rotate(0deg)}
+  12%{opacity:.55}
+  85%{opacity:.4}
+  100%{opacity:0;transform:translateY(-140px) scale(1.15) rotate(40deg)}
+}
+
 /* ═══════════════════════════════════════════════════
    BOOK SCREEN
 ═══════════════════════════════════════════════════ */
@@ -341,6 +355,45 @@ body{font-family:'EB Garamond',serif}
 }
 
 /* ═══════════════════════════════════════════════════
+   SKY DECORATIONS — sun/moon, clouds, stars, hills
+═══════════════════════════════════════════════════ */
+#sky-deco{
+  position:absolute;inset:0;overflow:visible;pointer-events:none;
+  opacity:0;transition:opacity 1.4s ease .4s;
+}
+#book.is-open #sky-deco{opacity:1}
+.sky-orb{
+  position:absolute;border-radius:50%;
+  animation:orbpulse 6s ease-in-out infinite;
+}
+@keyframes orbpulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.18)}}
+.sky-orb.moon{
+  box-shadow:inset 7px -5px 0 0 rgba(20,20,40,.55),0 0 0 0 transparent;
+}
+.sky-cloud{
+  position:absolute;border-radius:50%;filter:blur(2.5px);opacity:.8;
+}
+.sky-star{
+  position:absolute;border-radius:50%;background:#fff8e0;
+  animation:twinkle ease-in-out infinite;
+}
+@keyframes twinkle{0%,100%{opacity:.12}50%{opacity:1}}
+.sky-hill{
+  position:absolute;left:-25px;right:-25px;
+  border-radius:50% 50% 0 0 / 100% 100% 0 0;
+  opacity:.55;
+}
+
+/* ═══════════════════════════════════════════════════
+   GRASS / FOLIAGE TUFTS
+═══════════════════════════════════════════════════ */
+.grass-tuft{
+  position:absolute;bottom:2px;
+  border-radius:60% 60% 10% 10%/100% 100% 20% 20%;
+  opacity:.9;
+}
+
+/* ═══════════════════════════════════════════════════
    PAVILION SHAPES  — each built as a CSS stack
 ═══════════════════════════════════════════════════ */
 /* ── JAPAN: Torii Gate ─────────────────────────── */
@@ -599,6 +652,33 @@ body{font-family:'EB Garamond',serif}
   color:#4a2a18;font-size:.95rem;line-height:1.6;
 }
 
+/* ── WAX SEAL ───────────────────────────────────── */
+.wax-seal{
+  position:absolute;top:4px;right:14px;z-index:3;
+  width:46px;height:46px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,var(--seal,#c0392b) 0%,var(--seal2,#7a1018) 78%);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,232,212,.9);font-size:1.25rem;
+  box-shadow:0 5px 12px rgba(0,0,0,.35),
+             inset 0 2px 4px rgba(255,255,255,.3),
+             inset 0 -4px 7px rgba(0,0,0,.35);
+  transform:rotate(-9deg);
+  border:2px solid rgba(0,0,0,.12);
+  animation:sealdrop .8s cubic-bezier(.34,1.56,.64,1) .2s both;
+}
+@keyframes sealdrop{
+  0%{transform:translateY(-14px) rotate(-9deg) scale(.4);opacity:0}
+  100%{transform:translateY(0) rotate(-9deg) scale(1);opacity:1}
+}
+
+/* ── LETTER FLOURISHES ──────────────────────────── */
+.l-flourish{
+  text-align:center;color:rgba(160,110,70,.35);
+  font-size:1.3rem;letter-spacing:.3em;margin:.3rem 0 .9rem;
+  font-family:'Playfair Display',serif;
+}
+.l-flourish.bottom{margin:1rem 0 .2rem}
+
 /* ═══════════════════════════════════════════════════
    RESPONSIVE — scale book for small screens
 ═══════════════════════════════════════════════════ */
@@ -616,6 +696,7 @@ body{font-family:'EB Garamond',serif}
 
 <!-- ═══ SCENE SELECTOR ═══ -->
 <section id="selector" class="screen">
+  <div id="ambient"></div>
   <header class="selector-header">
     <h1 class="selector-title">For <span>My Love</span> ♡</h1>
     <p class="selector-sub">Choose where our story begins…</p>
@@ -636,13 +717,17 @@ body{font-family:'EB Garamond',serif}
         <div class="page" id="left-page">
           <div id="scene-wrap">
             <div id="scene-stage">
+              <div id="sky-deco"></div>
               <div class="ground-shadow"></div>
               <div id="pavilion" class="popup-el" style="--d:.5s"></div>
+              <div id="grass"></div>
               <div id="flowers"></div>
             </div>
           </div>
         </div>
         <div class="page" id="right-page">
+          <div class="wax-seal" id="wax-seal">♡</div>
+          <div class="l-flourish">⟡ ❀ ⟡</div>
           <p class="l-date" id="l-date"></p>
           <p class="l-salute">My Love,</p>
           <div class="l-body">
@@ -653,6 +738,7 @@ body{font-family:'EB Garamond',serif}
             <p>In every country, every season, every life — I would find you. I would choose you again.</p>
           </div>
           <div class="l-sig">Forever &amp; always,<br><strong>Ivan</strong> ♡</div>
+          <div class="l-flourish bottom">⟡ ❀ ⟡</div>
         </div>
       </div>
 
@@ -693,6 +779,10 @@ const SCENES = {
     sky1:'#fce4ec', sky2:'#f8bbd0', gnd1:'#4a8028', gnd2:'#2a5014',
     bgrgb:'200,80,100',
     petal:'#ffb7c5',
+    seal:'#c0392b', seal2:'#7a1018',
+    sky:{orb:{x:148,y:4,size:32,color:'#ffb3a0',glow:24},
+      clouds:[{x:8,y:24,w:46,h:13,c:'rgba(255,255,255,.55)'},{x:112,y:44,w:38,h:11,c:'rgba(255,255,255,.45)'}],
+      stars:0, hill:'#3a6022'},
     pavilionFn:'pavJapan',
     flowers:[
       {t:'sakura',x:15,b:38,s:1.1,c:'#ffb0c0',d:.7},
@@ -713,6 +803,10 @@ const SCENES = {
     sky1:'#fff8e8', sky2:'#ffe0a0', gnd1:'#3a7020', gnd2:'#1e4010',
     bgrgb:'120,160,80',
     petal:'#f5c090',
+    seal:'#2a8030', seal2:'#143a14',
+    sky:{orb:{x:24,y:2,size:26,color:'#fff0a0',glow:20},
+      clouds:[{x:88,y:12,w:52,h:15,c:'rgba(255,255,255,.6)'},{x:148,y:40,w:34,h:10,c:'rgba(255,255,255,.5)'}],
+      stars:0, hill:'#1e4010'},
     pavilionFn:'pavKorea',
     flowers:[
       {t:'peach',x:16,b:40,s:1.1,c:'#f5a880',d:.72},
@@ -733,6 +827,10 @@ const SCENES = {
     sky1:'#ffccbc', sky2:'#ff7043', gnd1:'#2a6018', gnd2:'#164008',
     bgrgb:'180,80,40',
     petal:'#ff8060',
+    seal:'#9b0000', seal2:'#5a0000',
+    sky:{orb:{x:44,y:6,size:34,color:'#ffc080',glow:28},
+      clouds:[{x:122,y:26,w:46,h:13,c:'rgba(255,220,200,.5)'}],
+      stars:0, hill:'#164008'},
     pavilionFn:'pavChina',
     flowers:[
       {t:'lotus',x:14,b:38,s:1.1,c:'#ff7070',d:.72},
@@ -752,6 +850,10 @@ const SCENES = {
     sky1:'#c8e8ff', sky2:'#60aaf0', gnd1:'#4a8820', gnd2:'#286010',
     bgrgb:'80,130,80',
     petal:'#e060a0',
+    seal:'#1a5a2a', seal2:'#0c2f14',
+    sky:{orb:{x:170,y:0,size:24,color:'#fffbe0',glow:18},
+      clouds:[{x:12,y:14,w:58,h:17,c:'rgba(255,255,255,.65)'},{x:74,y:40,w:38,h:11,c:'rgba(255,255,255,.5)'}],
+      stars:0, hill:'#286010'},
     pavilionFn:'pavWest',
     flowers:[
       {t:'rose',x:15,b:38,s:1.1,c:'#e01840',d:.72},
@@ -772,6 +874,10 @@ const SCENES = {
     sky1:'#fff8c0', sky2:'#ffd040', gnd1:'#5a4010', gnd2:'#3a2808',
     bgrgb:'200,140,40',
     petal:'#ffa020',
+    seal:'#c87800', seal2:'#7a4800',
+    sky:{orb:{x:94,y:4,size:32,color:'#ffe27a',glow:26},
+      clouds:[{x:8,y:34,w:44,h:12,c:'rgba(255,250,220,.5)'}],
+      stars:0, hill:'#3a2808'},
     pavilionFn:'pavIndia',
     flowers:[
       {t:'marigold',x:14,b:38,s:1.1,c:'#ffa010',d:.72},
@@ -792,6 +898,10 @@ const SCENES = {
     sky1:'#d0e8ff', sky2:'#2878d8', gnd1:'#8a6420', gnd2:'#5a4010',
     bgrgb:'40,80,180',
     petal:'#e040a0',
+    seal:'#1a4a90', seal2:'#0c2858',
+    sky:{orb:{x:146,y:4,size:24,color:'#fef6d8',glow:14,type:'moon'},
+      clouds:[],
+      stars:14, hill:'#5a4010'},
     pavilionFn:'pavMorocco',
     flowers:[
       {t:'boug',x:14,b:38,s:1.1,c:'#e030a0',d:.72},
@@ -812,6 +922,10 @@ const SCENES = {
     sky1:'#d8f0ff', sky2:'#3098e0', gnd1:'#5a8820', gnd2:'#385810',
     bgrgb:'60,130,200',
     petal:'#9060c0',
+    seal:'#2868b0', seal2:'#143a68',
+    sky:{orb:{x:136,y:0,size:26,color:'#fffbe0',glow:20},
+      clouds:[{x:12,y:18,w:54,h:16,c:'rgba(255,255,255,.65)'},{x:54,y:44,w:34,h:10,c:'rgba(255,255,255,.5)'}],
+      stars:0, hill:'#385810'},
     pavilionFn:'pavGreece',
     flowers:[
       {t:'boug',x:12,b:38,s:1.0,c:'#9060c0',d:.72},
@@ -831,6 +945,10 @@ const SCENES = {
     sky1:'#ffe0c0', sky2:'#ff6020', gnd1:'#2a6020', gnd2:'#164010',
     bgrgb:'180,100,40',
     petal:'#ff4060',
+    seal:'#d4501a', seal2:'#7a2a0c',
+    sky:{orb:{x:54,y:6,size:36,color:'#ffae5e',glow:30},
+      clouds:[{x:136,y:28,w:42,h:12,c:'rgba(255,220,200,.5)'}],
+      stars:0, hill:'#164010'},
     pavilionFn:'pavBali',
     flowers:[
       {t:'hibiscus',x:14,b:38,s:1.1,c:'#ff2848',d:.72},
@@ -1011,6 +1129,53 @@ function heartBurst(e,parent){
 }
 
 /* ═══════════════════════════════════════════════════
+   SKY DECORATIONS
+═══════════════════════════════════════════════════ */
+function buildSky(s,el){
+  let h='';
+  if(s.sky.hill){
+    h+=`<div class="sky-hill" style="bottom:166px;height:36px;background:${s.sky.hill}"></div>`;
+    h+=`<div class="sky-hill" style="bottom:160px;height:24px;background:${s.sky.hill};opacity:.4;left:60px"></div>`;
+  }
+  const orb=s.sky.orb;
+  if(orb){
+    if(orb.type==='moon'){
+      h+=`<div class="sky-orb moon" style="left:${orb.x}px;top:${orb.y}px;width:${orb.size}px;height:${orb.size}px;
+        background:${orb.color};box-shadow:inset 7px -5px 0 0 rgba(20,20,40,.55),0 0 ${orb.glow}px ${orb.glow/2}px rgba(254,246,216,.35)"></div>`;
+    } else {
+      h+=`<div class="sky-orb" style="left:${orb.x}px;top:${orb.y}px;width:${orb.size}px;height:${orb.size}px;
+        background:radial-gradient(circle at 35% 30%,#fff,${orb.color} 70%);
+        box-shadow:0 0 ${orb.glow}px ${orb.glow/2}px ${orb.color}"></div>`;
+    }
+  }
+  (s.sky.clouds||[]).forEach(c=>{
+    h+=`<div class="sky-cloud" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.c}"></div>`;
+    h+=`<div class="sky-cloud" style="left:${c.x+c.w*.35}px;top:${c.y-c.h*.35}px;width:${c.w*.6}px;height:${c.h*.7}px;background:${c.c}"></div>`;
+  });
+  for(let i=0;i<(s.sky.stars||0);i++){
+    const sz=1+Math.random()*2;
+    h+=`<div class="sky-star" style="left:${Math.random()*205}px;top:${Math.random()*62}px;
+      width:${sz}px;height:${sz}px;animation-duration:${1.6+Math.random()*2.4}s;animation-delay:${Math.random()*2.4}s"></div>`;
+  }
+  el.innerHTML=h;
+}
+
+/* ═══════════════════════════════════════════════════
+   GRASS / FOLIAGE
+═══════════════════════════════════════════════════ */
+function buildGrass(s,el){
+  const xs=[2,22,46,168,188,206];
+  let h='';
+  xs.forEach((x,i)=>{
+    const c=i%2?s.gnd1:s.gnd2;
+    const w=14+((i*7)%10);
+    const ht=10+((i*5)%8);
+    h+=`<div class="grass-tuft popup-el" style="left:${x}px;width:${w}px;height:${ht}px;background:${c};--d:${.58+(i%4)*.05}s"></div>`;
+  });
+  el.innerHTML=h;
+}
+
+/* ═══════════════════════════════════════════════════
    PARTICLES
 ═══════════════════════════════════════════════════ */
 let ptInt=null;
@@ -1032,6 +1197,24 @@ function stopParticles(){
   if(ptInt){clearInterval(ptInt);ptInt=null}
   document.getElementById('particles').innerHTML='';
 }
+
+/* ═══════════════════════════════════════════════════
+   AMBIENT SPARKLES — selector background
+═══════════════════════════════════════════════════ */
+(function(){
+  const box=document.getElementById('ambient');
+  const symbols=['♡','✦','❀','✧'];
+  for(let i=0;i<20;i++){
+    const el=document.createElement('span');
+    el.className='amb-item';
+    el.textContent=symbols[i%symbols.length];
+    const sz=.7+Math.random()*1.3;
+    el.style.cssText=`left:${Math.random()*100}%;top:${20+Math.random()*80}%;
+      font-size:${sz}rem;animation-duration:${10+Math.random()*14}s;
+      animation-delay:${Math.random()*12}s`;
+    box.appendChild(el);
+  }
+})();
 
 /* ═══════════════════════════════════════════════════
    SCENE SELECTOR — render cards
@@ -1072,15 +1255,28 @@ function selectScene(key){
   document.getElementById('spine-shadow').style.background=s.cover;
   document.getElementById('cover-label').textContent=s.coverLabel;
 
+  // Sky decorations
+  r.setProperty('--seal',s.seal);
+  r.setProperty('--seal2',s.seal2);
+  buildSky(s,document.getElementById('sky-deco'));
+
   // Pavilion
   const pav=document.getElementById('pavilion');
   pav.innerHTML='';
   window[s.pavilionFn](pav);
 
+  // Grass / foliage
+  buildGrass(s,document.getElementById('grass'));
+
   // Flowers
   const fc=document.getElementById('flowers');
   fc.innerHTML='';
   s.flowers.forEach(def=>fc.appendChild(buildFlower(def)));
+
+  // Wax seal replay
+  const seal=document.getElementById('wax-seal');
+  seal.style.animation='none';
+  requestAnimationFrame(()=>{seal.style.animation=''});
 
   // Date
   document.getElementById('l-date').textContent=
