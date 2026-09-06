@@ -100,7 +100,7 @@
             <p class="io-hero__sub">
               Data-driven operations professional working across Data Operations and
               Operations Analyst work — programme coordination, workflow
-              optimisation, operational reporting, and audit tracking.
+              automation, operational reporting, and audit tracking.
             </p>
             <div class="io-hero__ctas">
               <a href="#work" class="io-btn io-btn--primary">
@@ -212,10 +212,128 @@
             <span class="io-eyebrow io-eyebrow--accent io-section__num">Selected work</span>
           </div>
           <h2 class="io-section__title">Case studies.</h2>
-          <p class="io-section__sub">Each study is anonymised. Numbers are estimates from operations work, not absolute claims.</p>
+          <p class="io-section__sub">Automation work from Strategym (2026–present), followed by prior operations work. Each study is anonymised — numbers are estimates, not absolute claims.</p>
         </div>
 
         <div class="io-cases">
+
+          <!-- ╔═══ PROJECT BLOCK: lms ═══════════════════════════════════ -->
+          <article class="io-case" data-modal="modal-lms">
+            <div class="io-case__eyebrow">
+              <span class="io-eyebrow io-eyebrow--accent io-case__num">CASE STUDY</span>
+              <span class="io-mono io-case__tag">· AUTOMATION · LEAD MANAGEMENT</span>
+            </div>
+            <h3 class="io-case__title">Lead Notification &amp; Data Pipeline Automation</h3>
+            <div class="io-case__metric">
+              <span class="io-case__metric-num">15–30min</span>
+              <span class="io-case__metric-label">automated lead sync interval, live across 3 clients</span>
+            </div>
+            <p class="io-case__blurb">Extended and customised a Google Apps Script pipeline that pulls Facebook leads into a live sheet, deduplicates them, and pushes instant Telegram alerts to sales teams.</p>
+            <div class="io-case__row">
+              <div class="io-case__tools">
+                <span class="io-pill io-pill--sm">Google Apps Script</span>
+                <span class="io-pill io-pill--sm">Telegram Bot API</span>
+                <span class="io-pill io-pill--sm">Facebook Lead Ads API</span>
+                <span class="io-pill io-pill--sm">Automation</span>
+              </div>
+              <button type="button" class="io-case__more io-case__cta"
+                      aria-label="Read case study: Lead Notification and Data Pipeline Automation"
+                      aria-haspopup="dialog" aria-controls="modal-lms">
+                Read case study <i data-lucide="arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+
+          <div class="io-modal" id="modal-lms" role="dialog" aria-modal="true" aria-labelledby="modal-lms-title">
+            <div class="io-modal__panel" data-lenis-prevent>
+              <button class="io-modal__close" data-modal-close aria-label="Close"><i data-lucide="x"></i></button>
+              <div class="io-modal__head">
+                <div class="io-eyebrow io-eyebrow--accent">Case study</div>
+                <h2 class="io-modal__title" id="modal-lms-title">Lead Notification &amp; Data Pipeline Automation</h2>
+                <div class="io-mono io-case__tag">AUTOMATION · LEAD MANAGEMENT</div>
+              </div>
+              <div class="io-modal__body">
+                <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Context</span><p>Multiple boutique fitness studio clients generated leads through Facebook Lead Ads but had no reliable way to see or act on them quickly.</p></div>
+                <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Problem</span><p>Leads were checked manually, often missed or double-handled, with no single source of truth and no instant alert when a new one came in.</p></div>
+                <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Solution</span><p>Studied an existing Google Apps Script codebase, then independently extended and customised it per client: added deduplication by Lead ID, self-healing for missing data fields, and real-time Telegram Bot API notifications to each client's sales team on a time-based trigger.</p></div>
+                <div class="io-modal__meta">
+                  <div class="io-modal__meta-col">
+                    <span class="io-eyebrow io-eyebrow--neutral">Tools</span>
+                    <div class="io-case__tools"><span class="io-pill io-pill--sm">Google Apps Script</span><span class="io-pill io-pill--sm">Google Sheets</span><span class="io-pill io-pill--sm">Telegram Bot API</span><span class="io-pill io-pill--sm">Facebook Lead Ads API</span></div>
+                  </div>
+                  <div class="io-modal__meta-col"><span class="io-eyebrow io-eyebrow--neutral">Data scale</span><p class="io-mono io-modal__scale">3 client systems live · syncs every 15–30 min</p></div>
+                </div>
+                <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Impact</span>
+                  <ul class="io-impact">
+                    <li><i data-lucide="check"></i><span>Eliminated manual Facebook polling and duplicate lead handling across all 3 clients</span></li>
+                    <li><i data-lucide="check"></i><span>Sales teams alerted within minutes of a new lead instead of manual checks</span></li>
+                    <li><i data-lucide="check"></i><span>Running continuously in production since deployment</span></li>
+                    <li><i data-lucide="check"></i><span>Contributed to one client roughly doubling monthly revenue over the period the system was in active use — attribution is shared with the sales team, who executed on the visibility it provided</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ╚═══ /lms ═════════════════════════════════════════════════ -->
+
+          <!-- ╔═══ PROJECT BLOCK: dashboard ═════════════════════════════ -->
+          <article class="io-case" data-modal="modal-dashboard">
+            <div class="io-case__eyebrow">
+              <span class="io-eyebrow io-eyebrow--accent io-case__num">CASE STUDY</span>
+              <span class="io-mono io-case__tag">· DASHBOARD · REPORTING</span>
+            </div>
+            <h3 class="io-case__title">Sales Pipeline &amp; Revenue Dashboard</h3>
+            <div class="io-case__metric">
+              <span class="io-case__metric-num">3</span>
+              <span class="io-case__metric-label">clients running the dashboard live, built from scratch</span>
+            </div>
+            <p class="io-case__blurb">Designed and built a Google Sheets sales dashboard from the ground up, giving each client a live view of lead pipeline and revenue with an automated weekly digest.</p>
+            <div class="io-case__row">
+              <div class="io-case__tools">
+                <span class="io-pill io-pill--sm">Google Sheets</span>
+                <span class="io-pill io-pill--sm">Google Apps Script</span>
+                <span class="io-pill io-pill--sm">Dashboard Design</span>
+                <span class="io-pill io-pill--sm">Automation</span>
+              </div>
+              <button type="button" class="io-case__more io-case__cta"
+                      aria-label="Read case study: Sales Pipeline and Revenue Dashboard"
+                      aria-haspopup="dialog" aria-controls="modal-dashboard">
+                Read case study <i data-lucide="arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+
+          <div class="io-modal" id="modal-dashboard" role="dialog" aria-modal="true" aria-labelledby="modal-dashboard-title">
+            <div class="io-modal__panel" data-lenis-prevent>
+              <button class="io-modal__close" data-modal-close aria-label="Close"><i data-lucide="x"></i></button>
+              <div class="io-modal__head">
+                <div class="io-eyebrow io-eyebrow--accent">Case study</div>
+                <h2 class="io-modal__title" id="modal-dashboard-title">Sales Pipeline &amp; Revenue Dashboard</h2>
+                <div class="io-mono io-case__tag">DASHBOARD · REPORTING</div>
+              </div>
+              <div class="io-modal__body">
+                <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Context</span><p>Pipeline and revenue numbers already existed in the underlying data but required manual digging to surface — no consistent, readable view for clients or the internal team.</p></div>
+                <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Problem</span><p>There was no single place to check lead pipeline health or revenue trends; reporting was manual and irregular.</p></div>
+                <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Solution</span><p>Built the dashboard structure from scratch — formulas, conditional formatting, named ranges, and a structured layout — then wired an automated weekly digest via Apps Script so it fires without manual compilation.</p></div>
+                <div class="io-modal__meta">
+                  <div class="io-modal__meta-col">
+                    <span class="io-eyebrow io-eyebrow--neutral">Tools</span>
+                    <div class="io-case__tools"><span class="io-pill io-pill--sm">Google Sheets</span><span class="io-pill io-pill--sm">Google Apps Script</span></div>
+                  </div>
+                  <div class="io-modal__meta-col"><span class="io-eyebrow io-eyebrow--neutral">Data scale</span><p class="io-mono io-modal__scale">Live across 3 clients · automated weekly digest</p></div>
+                </div>
+                <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Impact</span>
+                  <ul class="io-impact">
+                    <li><i data-lucide="check"></i><span>Data that previously required manual interpretation is now visible in one view</span></li>
+                    <li><i data-lucide="check"></i><span>Weekly digest fires automatically — no manual compilation required</span></li>
+                    <li><i data-lucide="check"></i><span>Gave the team a consistent basis for client reporting and internal decision-making</span></li>
+                    <li><i data-lucide="check"></i><span>Supported one client roughly doubling monthly revenue over the period the dashboard was in active use — attribution is shared with the sales team, who executed on the visibility it provided</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ╚═══ /dashboard ═══════════════════════════════════════════ -->
 
           <!-- ╔═══ PROJECT BLOCK: scheduling ════════════════════════════
                To add a new case study: copy one block (card + modal),
@@ -468,6 +586,49 @@
 
           <article class="io-project">
             <span class="io-project__num"></span>
+            <h3 class="io-project__title">Internal File Sync Automation</h3>
+            <p class="io-project__blurb">A Bash script built from scratch, with AI-assisted development, to sync working files between two machines via a NAS — with conflict detection that flags a newer destination file for manual review instead of overwriting it.</p>
+            <div class="io-project__tools">
+              <span class="io-pill io-pill--sm">Bash</span>
+              <span class="io-pill io-pill--sm">Shell Scripting</span>
+              <span class="io-pill io-pill--sm">Automation</span>
+              <span class="io-pill io-pill--sm">AI-Assisted Development</span>
+            </div>
+          </article>
+
+          <article class="io-project">
+            <span class="io-project__num"></span>
+            <h3 class="io-project__title">Client Outreach &amp; Sales Launch Operations</h3>
+            <p class="io-project__blurb">End-to-end outreach and sales operations for a B2B client-acquisition programme — cold outreach, structured research briefs, and running the full sales cycle from warm lead through close and handover. In one structured launch event, closed several sales end to end — warm lead call through in-person meeting to close — contributing several thousand SGD in new member revenue for that client that month.</p>
+            <div class="io-project__tools">
+              <span class="io-pill io-pill--sm">Cold Outreach</span>
+              <span class="io-pill io-pill--sm">Sales</span>
+              <span class="io-pill io-pill--sm">Client Research</span>
+              <span class="io-pill io-pill--sm">Google Sheets</span>
+            </div>
+          </article>
+
+          <article class="io-project">
+            <span class="io-project__num"></span>
+            <h3 class="io-project__title">Podcast Interviewing &amp; Production</h3>
+            <p class="io-project__blurb">Interviewer and on-camera host for a B2B podcast series featuring gym owners and founders — 6+ episodes recorded to date, with the production work end to end:</p>
+            <ul class="io-impact io-project__list">
+              <li><i data-lucide="check"></i><span>Interviewed and hosted on-camera, running structured guest interviews start to finish</span></li>
+              <li><i data-lucide="check"></i><span>Coordinated pre-production — scheduling recordings, confirming guests and locations</span></li>
+              <li><i data-lucide="check"></i><span>Designed custom guest questionnaires per gym from a master template</span></li>
+              <li><i data-lucide="check"></i><span>Provided on-set production support and handed off footage to the editor</span></li>
+              <li><i data-lucide="check"></i><span>Reviewed edits before release and coordinated episode distribution</span></li>
+            </ul>
+            <div class="io-project__tools">
+              <span class="io-pill io-pill--sm">On-Camera Interviewing</span>
+              <span class="io-pill io-pill--sm">Guest Research</span>
+              <span class="io-pill io-pill--sm">Production Coordination</span>
+              <span class="io-pill io-pill--sm">Google Docs</span>
+            </div>
+          </article>
+
+          <article class="io-project">
+            <span class="io-project__num"></span>
             <h3 class="io-project__title">Payment &amp; Claims Verification Tracker</h3>
             <p class="io-project__blurb">A verification workflow for payment and claims processing that introduced structured checks and reconciliation steps, reducing the error rate from approximately 20% to 5%.</p>
             <div class="io-project__tools">
@@ -551,6 +712,13 @@
               operational reporting, audit tracking, and stakeholder coordination.
             </p>
             <p>
+              Currently <span class="io-em">Operations Manager at Strategym</span>,
+              a strategy consultancy, where I extend and build automation systems —
+              lead pipelines, sales dashboards, weekly reporting — on top of Google
+              Apps Script and Sheets, alongside client-facing outreach, research, and
+              sales operations work.
+            </p>
+            <p>
               I began my career in <span class="io-em">operations and police
               leadership</span>, coordinating large rotating teams and the systems
               that supported them. That work — auditing, scheduling, compliance
@@ -558,10 +726,12 @@
             </p>
             <p>
               Day to day I work in <span class="io-em">Excel and Google
-              Sheets</span>: operational trackers, reporting workflows, data
-              validation and cleaning, scheduling, and audit / compliance views.
-              Based in Singapore. Singapore-based and remote roles preferred;
-              open to Australia-based opportunities where visa sponsorship is available.
+              Sheets</span>, with growing hands-on experience in Google Apps
+              Script and API-based automation: operational trackers, reporting
+              workflows, data validation and cleaning, scheduling, and audit /
+              compliance views. Based in Singapore. Singapore-based and remote
+              roles preferred; open to Australia-based opportunities where visa
+              sponsorship is available.
             </p>
             <div class="io-about__sig">
               <span class="io-mono">— Ivan Ong</span>
@@ -647,6 +817,20 @@
                   <div class="io-skill__level">ETL/ELT Concepts · Data Validation · Pipeline Basics</div>
                 </div>
               </div>
+              <div class="io-skill io-skill--learning">
+                <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="webhook"></i></div>
+                <div class="io-skill__text">
+                  <div class="io-skill__label">Apps Script &amp; API Integrations <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__level">Trigger Logic · Telegram Bot API · Facebook Lead Ads API</div>
+                </div>
+              </div>
+              <div class="io-skill io-skill--learning">
+                <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="terminal"></i></div>
+                <div class="io-skill__text">
+                  <div class="io-skill__label">Bash / Shell Scripting <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__level">Sync Scripts · AI-Assisted Development</div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -663,6 +847,8 @@
               <span class="io-pill"><i data-lucide="activity"></i> Operations Analytics</span>
               <span class="io-pill"><i data-lucide="users"></i> Stakeholder Coordination</span>
               <span class="io-pill"><i data-lucide="workflow"></i> Process Improvement</span>
+              <span class="io-pill"><i data-lucide="zap"></i> Workflow Automation</span>
+              <span class="io-pill"><i data-lucide="phone-call"></i> B2B Outreach &amp; Sales</span>
             </div>
           </div>
 
@@ -724,6 +910,31 @@
             </div>
             <div class="io-metric__value"><span class="io-metric__num">40</span><span class="io-metric__suffix">%</span></div>
             <div class="io-metric__caption">estimated reduction via automation and standardisation</div>
+          </div>
+          <div class="io-metric" data-metric-value="3" data-metric-suffix="">
+            <div class="io-metric__top">
+              <span class="io-metric__index"></span>
+              <span class="io-metric__label">Live systems</span>
+            </div>
+            <div class="io-metric__value"><span class="io-metric__num">3</span><span class="io-metric__suffix"></span></div>
+            <div class="io-metric__caption">client automation systems running in production</div>
+          </div>
+          <div class="io-metric" data-metric-value="75" data-metric-suffix="+">
+            <div class="io-metric__top">
+              <span class="io-metric__index"></span>
+              <span class="io-metric__label">Outreach pipeline</span>
+            </div>
+            <div class="io-metric__value"><span class="io-metric__num">75</span><span class="io-metric__suffix">+</span></div>
+            <div class="io-metric__caption">B2B prospects actively managed in outreach pipeline</div>
+          </div>
+          <div class="io-metric" data-metric-value="2" data-metric-suffix="x">
+            <div class="io-metric__top">
+              <span class="io-metric__index"></span>
+              <span class="io-metric__label">Revenue growth</span>
+              <span class="io-metric__trend"><i data-lucide="trending-up"></i></span>
+            </div>
+            <div class="io-metric__value"><span class="io-metric__num">2</span><span class="io-metric__suffix">x</span></div>
+            <div class="io-metric__caption">roughly, at a client on the lead automation and dashboard systems</div>
           </div>
         </div>
       </div>
