@@ -714,8 +714,56 @@ port/load even after a query-string-busted HTML reload) — fixed by moving to a
 rather than fighting the cache. Confirmed via `javascript_tool` that the server was serving
 the updated CSS before troubleshooting further.
 
-Nothing pushed. Still the same Phase 15–22 batch sitting local-only, now including these About
-edits, waiting on Ivan's review-and-push decision.
+**Pushed to GitHub (commit `de21e9e`, 09 Sep 2026)** — Ivan gave explicit go-ahead to push
+before pausing for the night. This closes out the entire Phase 15–22 batch: nav/bracket
+labels, infographics, skills/pill hover cards, the OG image, and today's About rework +
+layout tuning are all now live at https://sanctional.github.io/Portfolio/. Left two unrelated
+untracked files (`council/council-report-2026-06-15.html`,
+`council/council-transcript-2026-06-15.md`) out of the commit — stray from an earlier session,
+not part of this work, no context on whether they should be committed.
+
+---
+
+## Phase 23 — Section Background Alternation Fix + Gradients (2026-09-09)
+
+Same session, after the Phase 22 push. Ivan flagged that the black/grey section alternation
+"from 01 to 05" looked off. Root cause: `#skills` (`[04]`) and `#metrics` (`[05]`) were both
+`.io-section--alt` (grey) back-to-back, breaking the pattern mid-page. Full audit of the
+computed background down the page (verified via `getComputedStyle`, not just eyeballing —
+`--bg-0` #101114 and `--bg-1` #1C1F26 are close enough in luminance that JPEG screenshots
+don't reliably show the difference):
+
+- Flipped `#work` → alt (grey), `#projects` → plain (black), `#about` → alt (grey), `#skills`
+  → plain (black). `#metrics` (grey) and `#contact` (black) were already correct, untouched.
+- Swapped the value-strip (Operational Reporting / Scheduling & Coordination / Process
+  Improvement cards) from black to grey, and the process-flow diagram from grey to black —
+  per Ivan's explicit spec: value-strip starts grey, next part black, alternating cleanly
+  down to black by the time it reaches Contact.
+- Result: a strict 9-zone alternation top to bottom — hero(black), value-strip(grey),
+  flow(black), work(grey), projects(black), about(grey), skills(black), metrics(grey),
+  contact(black).
+- Bumped `.io-value-item:hover` from grey→grey (a no-op once resting state became grey) to
+  grey→`--bg-2` (steel grey) so the hover affordance still reads.
+
+**Divider regression + fix:** the value-strip's 1px card dividers are its own container
+background (`--line-1`, a ~6%-opacity white overlay) showing through the grid `gap` — this
+was calibrated against a black card background. Once the cards flipped to grey, the
+near-white-on-black line rendered almost the same luminance as the grey cards themselves and
+effectively disappeared. Fixed by making the divider a solid `--bg-0` (flat black) instead of
+the translucent overlay — a crisp seam that stays visible regardless of card color, rather
+than a value re-tuned to one specific background.
+
+**Gradients over flat matte colors:** Ivan preferred a subtle gradient over solid section
+backgrounds. Added `--bg-0-soft` (#0A0B0D) and `--bg-1-soft` (#23262E) tokens and switched
+`.io-section` / `.io-section--alt` / `.io-value-item` / `.io-flow` from flat `--bg-0`/`--bg-1`
+to a 180deg linear-gradient from the base tone to its "soft" stop. Deliberately kept each
+gradient within its own black or grey family rather than blending black into grey — bleeding
+across would have undone the alternation contrast fixed earlier in this same phase. Hero and
+the value-strip's divider line were left flat/solid on purpose (hero already has its own
+radial glow treatment; the divider needs to stay a crisp, unambiguous line, not fade).
+
+Verified live via a throwaway local server each time. **Pushed to GitHub** along with this
+phase's write-up — Ivan gave explicit go-ahead before pausing for the night.
 
 ---
 
