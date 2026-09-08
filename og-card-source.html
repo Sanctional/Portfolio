@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>OG Card Source</title>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Manrope:wght@700;800&display=swap");
+
+  :root {
+    --bg-0: #101114;
+    --bg-1: #1C1F26;
+    --bg-2: #2E3238;
+    --fg-0: #F9FAFB;
+    --fg-1: #9CA3AF;
+    --fg-2: #6B7280;
+    --accent-0: #991B1B;
+    --accent-1: #B91C1C;
+    --accent-line: rgba(153, 27, 27, 0.6);
+    --line-1: rgba(255, 255, 255, 0.06);
+    --line-2: rgba(255, 255, 255, 0.12);
+    --font-body: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --font-accent: "Manrope", "Inter", sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1200px;
+    height: 630px;
+    background: var(--bg-0);
+    overflow: hidden;
+  }
+
+  .card {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    background: var(--bg-0);
+    font-family: var(--font-body);
+    color: var(--fg-0);
+    overflow: hidden;
+  }
+
+  /* burgundy glow, top-right, matching hero */
+  .glow {
+    position: absolute;
+    top: -220px;
+    right: -180px;
+    width: 720px;
+    height: 720px;
+    background: radial-gradient(circle, rgba(153,27,27,0.38) 0%, rgba(153,27,27,0.12) 42%, rgba(153,27,27,0) 70%);
+    filter: blur(10px);
+  }
+  .glow2 {
+    position: absolute;
+    bottom: -260px;
+    left: -160px;
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(circle, rgba(153,27,27,0.16) 0%, rgba(153,27,27,0) 70%);
+  }
+
+  /* faint grid texture */
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
+  }
+
+  .inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    padding: 72px 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .copy { max-width: 620px; }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .eyebrow .line { width: 28px; height: 1px; background: var(--accent-line); }
+  .eyebrow span.txt {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--accent-1);
+    text-transform: uppercase;
+  }
+
+  .name {
+    font-family: var(--font-accent);
+    font-weight: 800;
+    font-size: 84px;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--fg-0);
+    margin-bottom: 22px;
+  }
+
+  .tagline {
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--fg-1);
+    max-width: 540px;
+    margin-bottom: 32px;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--fg-1);
+  }
+  .meta .dot { color: var(--fg-2); }
+  .meta .role { color: var(--fg-0); font-weight: 500; }
+
+  /* --- dashboard panel, right side --- */
+  .panel-wrap {
+    position: relative;
+    width: 380px;
+    flex-shrink: 0;
+  }
+  .panel {
+    position: relative;
+    background: linear-gradient(180deg, var(--bg-1), var(--bg-0));
+    border: 1px solid var(--line-2);
+    border-radius: 18px;
+    padding: 26px 26px 22px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.04) inset;
+  }
+  .panel-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .panel-head .hairline { width: 22px; height: 1px; background: var(--accent-line); }
+  .panel-head .label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--fg-1);
+    flex: 1;
+  }
+  .panel-head .live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #4ade80;
+  }
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 3px rgba(74,222,128,0.18);
+  }
+
+  .stat-row { display: flex; align-items: flex-end; justify-content: space-between; padding: 14px 0; }
+  .stat-meta { display: flex; flex-direction: column; gap: 6px; }
+  .stat-label { font-size: 13px; color: var(--fg-1); }
+  .stat-delta { font-size: 12px; color: #4ade80; font-family: var(--font-mono); }
+  .stat-value { font-family: var(--font-mono); font-size: 30px; font-weight: 600; color: var(--fg-0); }
+  .divider { height: 1px; background: var(--line-1); margin: 2px 0; }
+
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 46px;
+    margin: 18px 0 14px;
+  }
+  .bars span {
+    flex: 1;
+    background: linear-gradient(180deg, var(--accent-1), var(--accent-0));
+    border-radius: 3px 3px 0 0;
+    opacity: 0.9;
+  }
+
+  .panel-foot {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-2);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .float-tag {
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    background: var(--accent-0);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 8px 14px;
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(153,27,27,0.4);
+  }
+
+  .brand-foot {
+    position: absolute;
+    left: 76px;
+    bottom: 40px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--fg-2);
+    letter-spacing: 0.04em;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="glow"></div>
+    <div class="glow2"></div>
+    <div class="grid"></div>
+
+    <div class="inner">
+      <div class="copy">
+        <div class="eyebrow">
+          <span class="line"></span>
+          <span class="txt">Operations · Data · Analytics</span>
+        </div>
+        <div class="name">Ivan Ong</div>
+        <div class="tagline">
+          Transforming operations into insights that drive better decisions.
+        </div>
+        <div class="meta">
+          <span class="role">Operations Manager</span>
+          <span class="dot">·</span>
+          <span>Singapore</span>
+          <span class="dot">·</span>
+          <span>Open to Remote</span>
+        </div>
+      </div>
+
+      <div class="panel-wrap">
+        <div class="float-tag">Live</div>
+        <div class="panel">
+          <div class="panel-head">
+            <span class="hairline"></span>
+            <span class="label">Operations · weekly</span>
+            <span class="live"><span class="live-dot"></span> Live</span>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-meta">
+              <span class="stat-label">Records / month</span>
+              <span class="stat-delta">▲ +18.2%</span>
+            </div>
+            <div class="stat-value">1,247</div>
+          </div>
+          <div class="divider"></div>
+          <div class="stat-row">
+            <div class="stat-meta">
+              <span class="stat-label">Process cycle time</span>
+              <span class="stat-delta">▼ −34%</span>
+            </div>
+            <div class="stat-value">2.1d</div>
+          </div>
+          <div class="divider"></div>
+
+          <div class="bars">
+            <span style="height:38%"></span>
+            <span style="height:55%"></span>
+            <span style="height:48%"></span>
+            <span style="height:72%"></span>
+            <span style="height:64%"></span>
+            <span style="height:88%"></span>
+            <span style="height:100%"></span>
+          </div>
+
+          <div class="panel-foot">
+            <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-foot">sanctional.github.io/Portfolio</div>
+  </div>
+</body>
+</html>

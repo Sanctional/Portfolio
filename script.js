@@ -6,7 +6,7 @@
 
 /* ── Lucide icons ── */
 function initIcons() {
-  if (window.lucide) lucide.createIcons();
+  if (window.lucide) lucide.createIcons({ attrs: { "stroke-width": 2.5 } });
 }
 initIcons();
 
@@ -380,7 +380,7 @@ function initModals() {
     modal.classList.add("is-open");
     document.body.style.overflow = "hidden";
     lenis?.stop(); // pause Lenis so its RAF loop can't scroll the background
-    if (window.lucide) lucide.createIcons();
+    if (window.lucide) lucide.createIcons({ attrs: { "stroke-width": 2.5 } });
     trapCleanups.set(modal, trapFocus(modal));
     modal.querySelector("[data-modal-close]")?.focus();
   }

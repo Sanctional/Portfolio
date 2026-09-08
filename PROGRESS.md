@@ -1,5 +1,5 @@
 # Portfolio Build Progress
-Last updated: 2026-09-07
+Last updated: 2026-09-08
 
 ---
 
@@ -372,6 +372,350 @@ card stays independently accurate without inviting the reader to connect them.
 **Still pending:** nothing has been pushed since commit `43bad85`. The revenue-bullet accuracy
 fix and project reorder are local changes only — next step is Ivan's explicit go-ahead
 immediately before this batch goes to GitHub, per the new standing rule.
+
+## Phase 15 — Third-Party Audit Triage + Design References (2026-09-07)
+
+**Audit triage.** Ivan brought critiques from two AI reviewers (Gemini, ChatGPT) plus an
+automated audit tool (`website-audit.md`) and two report links (sitecritic.ai, web-critic.app).
+Rather than reflexively acting on all of it, verified each claim against the actual code:
+- The automated tool's 0/10 scores for Accessibility/Performance/SEO were **fabricated/broken**
+  — its own evidence lines say "not measured" (Lighthouse failed to run), yet it defaulted to 0
+  instead of "unknown." Verified directly: profile image has real alt text, contrast ratios
+  computed from the actual CSS tokens are 6.5:1–15:1+ (comfortably past WCAG AA's 4.5:1, several
+  past AAA's 7:1). These claims were ignored.
+- Gemini's critique was reviewing a **stale/cached version** of the site — it describes "four
+  case study cards" and never mentions Strategym, the podcast work, or anything from the Sept
+  updates. Ignored its "add an About section" note since one already exists.
+- ChatGPT's critique was mostly generic WCAG/SEO boilerplate, not site-specific (hedged
+  language, describes things the site already does correctly — e.g. scripts already deferred
+  to end of `<body>`, not render-blocking).
+
+**What was actually real and implemented** (verified against code, not just tool output):
+- Added Person JSON-LD schema (`<script type="application/ld+json">` in `<head>`) — validated
+  it parses as proper JSON. Genuinely missing before, agreed across all sources.
+- Tightened the hero sub-copy into a clearer "who/what/outcome" statement for AI-answer-engine
+  citability, without losing existing ATS keyword coverage.
+- **Found and fixed a real bug while doing the design pass** (not from any audit — found by
+  reading the CSS): `.io-modal__close` was `position: absolute` *inside* `.io-modal__panel`,
+  which has `overflow-y: auto` — on a long case study, scrolling would carry the close button
+  off-screen with the content. Changed to `position: sticky; top: 14px` with a negative
+  bottom-margin so it doesn't push content down. Matches a risk Gemini's (stale) review
+  happened to flag correctly even though the rest of its critique was outdated.
+
+**Design references.** Ivan shared 3 sites (brikken.co, sergio-ayala.com, streamlinehq.com)
+asking to borrow elements. Reviewed all three live in-browser. Flagged that two of them
+(Brikken — creative agency, huge editorial type + full-bleed photography; Sergio Ayala — art
+director, cyberpunk HUD aesthetic with glow effects and glitch typography) are stylistically
+opposed to the credibility-first, ATS-friendly positioning the site is built around, and that
+wholesale-copying either risks undermining it. Asked which specific elements to pull rather
+than reskinning. Ivan picked 3, all implemented locally (not pushed):
+
+1. **Centered nav logo** (Brikken-style). Restructured the nav to a 3-column CSS grid
+   (left links / brand / right links+CTA). Kept a single `#nav-links` wrapper for the existing
+   mobile-toggle JS to keep working untouched — on desktop it's `display: contents` so its two
+   `.io-nav__side` groups become direct grid items flanking the brand; the existing mobile
+   media query adds `.io-nav__side { display: contents }` too, so mobile flattens back to the
+   original single stacked dropdown, pixel-equivalent to before.
+2. **Bracket-style index labels** (Sergio Ayala-style micro-detail, adapted). Applied only to
+   the CSS-counter-driven index labels that already existed (`.io-section__num`,
+   `.io-case__num`, `.io-project__num`, `.io-metric__index`) — e.g. "01 / SELECTED WORK"
+   becomes "[ 01 / SELECTED WORK ]". Deliberately did NOT apply to plain-language content
+   (modal Context/Problem/Solution labels, nav link text) so it reads as a deliberate
+   systematic-index convention, not decoration everywhere.
+3. **Bolder icons** (Streamline-inspired direction — not literally copied, that catalog is
+   mostly paid/licensed). Kept Lucide (already integrated, zero risk of broken/missing icon
+   names) but passed `{ attrs: { "stroke-width": 2.5 } }` to `lucide.createIcons()` instead of
+   the default weight — same "richer/bolder" visual direction Streamline was pointing at,
+   without a risky 71-icon-usage library migration.
+
+Verified all three live in-browser (Chrome tool reconnected mid-session): nav centers correctly
+on desktop, bracket labels render cleanly across case studies/projects/about/metrics sections,
+icons visibly bolder. Could not force-test the sticky close-button under actual scroll overflow
+(viewport resize tool didn't trigger a re-layout in this session, and current modal content
+doesn't overflow at full-height viewports) — the CSS pattern itself (sticky positioning inside
+an overflow-auto ancestor, negative margin to avoid pushing content) is a standard, well-
+supported technique, but flagging it as the one part of this batch not directly observed
+mid-scroll.
+
+**Not implemented** (Ivan didn't select it): bigger/bolder hero typography (Brikken-style).
+
+Opened the file locally for Ivan's review — nothing pushed yet, per the standing rule.
+
+## Phase 16 — Projects Grid Visual Polish (2026-09-07)
+
+Ivan asked to continue the visual-design track specifically (not content depth this time). Did
+a full live walkthrough of the rendered page in-browser section by section looking for real
+issues, rather than guessing — found two in the Projects grid:
+
+1. **Uneven blurb spacing.** With `.io-project__blurb { flex: 1 }`, short blurbs (e.g.
+   "Management & Townhall Reporting Pack," one sentence) sat glued to the top of their
+   stretched box with an awkward dead-space gap above the tools row, while longer-blurb
+   neighbors in the same row filled it naturally — visually unbalanced side by side. Fixed by
+   adding `display: flex; align-items: center` to `.io-project__blurb` so short text centers
+   vertically in its available space instead of top-anchoring with empty space below it.
+2. **Orphaned last card.** 7 project cards in an `auto-fit` grid (naturally 3 per row on
+   desktop) left the "Podcast Interviewing & Production" card alone in the last row with two
+   empty column-widths beside it — looked unfinished. Rather than a band-aid (e.g. spanning
+   empty space), reflowed that one card's internal layout: added `.io-project--wide`
+   (`grid-column: span 2`) and restructured its markup into a 2-column sub-grid
+   (`.io-project__wide-grid`) — title/blurb/tools on the left, the 5-item bullet list on the
+   right. Uses the extra width productively instead of just filling it. Stacks back to a single
+   column under 700px via its own media query.
+
+Verified both live in-browser at full width: Reporting Pack card's text now sits centered
+rather than top-glued; Podcast card now fills 2/3 of its row with the bullet list properly
+alongside the description instead of sitting alone. Also reconfirmed the Phase 15 changes
+(centered nav, bracket labels, bolder icons) still hold up under a fresh full walkthrough — no
+regressions.
+
+Opened the file locally for Ivan's review again — nothing pushed yet.
+
+## Phase 17 — Infographics (2026-09-07)
+
+Ivan's ask: "recruiters might not read all of it... have a balance of infographics and content."
+Loaded the `dataviz` skill before building anything (per its own trigger rules — stat tiles,
+charts, any data viz). Used the site's existing tokens (burgundy/crimson accent, dark surfaces)
+as the "design system parameters" the skill calls for, rather than swapping in a foreign
+palette. Proposed 4 concrete options tied to actual page sections (not generic chart ideas);
+Ivan picked all 4. Built and verified each live, one at a time:
+
+1. **Process flow diagram** — new compact section between the value strip and case studies:
+   Collect → Clean & Validate → Automate → Report & Decide, 4 icon-steps with arrows. Copy is
+   grounded in the actual case study language (dedup, validation, automation, dashboards), not
+   invented capability. Stacks vertically on mobile (arrows hidden, icon+text as a row).
+2. **Career timeline** — added to the About section, below the existing prose (kept the prose;
+   this is additive, not a replacement, matching "balance" not "replace text with pictures").
+   Horizontal line + dots on desktop, flips to a vertical line down the left edge on mobile
+   (same markup, media query only, no JS). Current role (Strategym) highlighted in accent red
+   with a glow ring.4 nodes grouped from the real work history: 2019–22 retail/service roles
+   (grouped), 2022–24 National Service, 2024–26 Team Axis, 2026–present Strategym.
+3. **Skills proficiency bars** — 5-segment bars added to all 8 skill entries (Strong + Learning
+   columns). Deliberately discrete segments, not a fake precise percentage (dataviz skill:
+   don't imply false precision). Strong = 4/5 filled in accent red; Learning = 2/5 in grey for
+   the four purely-coursework skills (SQL, Python, Power BI, ETL — matches their own "Foundations
+   / Basics / Concepts" descriptions); Apps Script and Bash bumped to 3/5 since those involve
+   real production/built-from-scratch usage per their own case studies, not just coursework —
+   a distinction already supported by content already on the page, not a new claim.
+4. **Case study before/after bars** — added to the 2 case studies with a genuine explicit
+   before→after pair (Compliance: 4h→30m; Reporting: 3→1 views to answer "what changed?").
+   Deliberately did NOT force this treatment onto the percentage-only case studies (Scheduling
+   20%, Cleaning 40%) — those don't have a stated baseline to bar-chart against, and the
+   dataviz skill's own guidance is that a single headline number is sometimes the right call,
+   not everything needs to become a chart. Those keep their existing big-number treatment.
+
+Verified all 4 live in-browser, one at a time before moving to the next: flow diagram renders
+correctly full-width and stacked; timeline line/dots/current-node highlight all correct; skill
+bars show visibly different fill levels (Strong red 4/5, Learning grey 2-3/5); both compare-bar
+modals show correct proportions and labels (fixed one minor wrap issue on "3 views" by widening
+the value column). No regressions to previously-verified sections re-checked in passing.
+
+Opened the file locally for Ivan's review — nothing pushed yet, per the standing rule.
+
+## Phase 18 — Mobile/Responsive Audit (2026-09-07)
+
+Ivan asked for a mobile/responsive check. Hit a real tool limitation: `resize_window` (the
+Chrome extension's viewport-resize tool) reports success but does nothing — confirmed via
+`window.innerWidth`/`outerWidth` staying at the physical monitor's 2560px across two different
+resize attempts, a fresh tab, and a fresh navigation. Keyboard zoom shortcuts are also blocked
+in this environment. So no live narrow-viewport render was possible this session. Filed this as
+product feedback rather than silently working around it or claiming a visual check that didn't
+happen.
+
+**Fell back to a full code audit instead** — read every `@media` rule in `styles.css` (14
+total) and traced each one against the actual markup:
+- **Found and fixed a real inconsistency**: the value strip stacks to mobile layout at 768px,
+  but the Phase 17 process flow diagram right below it didn't stack until 860px — so in that
+  68px range, two visually-adjacent, similarly-styled sections would be in different layout
+  states. Aligned the flow diagram's breakpoint to 768px to match.
+- **Traced the Phase 15 nav mobile-collapse logic line by line** (the most structurally
+  complex responsive change from this session, and the one never actually seen below 860px
+  live) to confirm it holds up: `#nav-links` flips from `display: contents` (desktop, lets its
+  two `.io-nav__side` groups flank the brand as direct grid items) to `display: none` /
+  `.is-open { display: flex }` at 860px, which — same specificity, later in source order —
+  correctly wins the cascade over the desktop rule. `.io-nav__side { display: contents }` inside
+  that same mobile query flattens both groups so all 4 links stack as one list, matching the
+  original pre-refactor mobile dropdown exactly. Confirmed the JS toggle still targets
+  `#nav-links` by ID (unchanged) and the grid-column placement on `.io-nav__side--left/right`
+  correctly becomes inert once `display: contents` removes their own box at mobile widths, not
+  a hidden conflict.
+- Checked the new Phase 17 pieces individually for narrow-width overflow risk: skill proficiency
+  bars (5 segments × 16px + gaps ≈ 92px minimum, no risk at any real card width since skills
+  columns stack to 1 column at 800px anyway), before/after compare bars in modals (fixed-width
+  label/value columns leave the middle track flexible, no wrap risk — already fixed one
+  "3 views" wrap issue live in Phase 17), the wide project card's 2-column reflow (degrades
+  correctly if the outer `auto-fit` grid has already collapsed to 1 track — CSS clamps
+  `grid-column: span 2` to 1 automatically, no bug), and the timeline's horizontal→vertical flip
+  at 720px (dot repositioning and padding-left math checked, sits inside `.io-container` full
+  width independent of the About grid's own 800px breakpoint, so no interaction between the two).
+
+**Not verified live** — this entire phase is a code-reasoning audit, not a visual one. Genuinely
+resizing a browser (or checking on an actual phone) is the only way to catch what static
+analysis can't (real touch-target feel, actual text reflow, anything CSS-correct-but-ugly). Flagged
+this clearly rather than implying it was tested. Worth a real pass next time the resize tool
+works, or Ivan can check directly on his phone.
+
+Opened the file locally for Ivan's review — nothing pushed yet, per the standing rule.
+
+## Phase 19 — Skills Hover Cards (2026-09-08)
+
+Ivan asked for a hover card on each skill in the Skills & Tools section — description shows on
+mouseover, closes when the cursor leaves, without taking over the screen. Built as pure CSS
+(`:hover` / `:focus-within` toggling opacity + `pointer-events`, no JS) — the browser's own
+hover/unhover events handle "shows on hover, closes when cursor leaves" natively without needing
+a mouseleave listener.
+
+- Added `.io-skill__popover` to all 8 skill entries (Excel, Google Sheets, SQL, Python, Power BI,
+  Data Pipelines & ETL, Apps Script & API Integrations, Bash/Shell Scripting) — a small card
+  anchored above each skill row with a CSS-triangle pointer, `--shadow-popover` (already an
+  existing token, reused rather than inventing a new shadow), fades/slides in on hover.
+- Content is grounded, not invented: reused facts already established elsewhere on the site/CV
+  work this session (e.g. Apps Script popover references the exact "3 client accounts, Telegram
+  Bot API, Facebook Lead Ads API" facts from the LMS case study; Python/Power BI/ETL popovers are
+  explicit that they're coursework-only, not production — consistent with the accuracy rules
+  this whole project has followed).
+- Added `tabindex="0"` to each `.io-skill` and used `:focus-within` alongside `:hover` so
+  keyboard users can tab to a skill and see the same card — not hover-only.
+- **Mobile fallback**: hover doesn't really exist on touch devices, so under 700px the popover
+  drops the floating-card treatment entirely (`position:static`, always visible, no pointer
+  triangle) and reads as a normal inline description under the skill instead — avoids a
+  hover-only feature being invisible/unreachable on a phone.
+
+Verified live: hovering Excel showed the popover cleanly positioned above the card with its
+pointer arrow; moving the cursor away closed it immediately — confirmed via a follow-up
+screenshot showing it fully gone, not just faded.
+
+Opened the file locally for Ivan's review — nothing pushed yet, per the standing rule.
+
+## Phase 20 — Practice Pill Hover Cards + Higgsfield OG Image Attempt (2026-09-08)
+
+**Practice pill hover cards.** Ivan asked for the Practice pills (Data Cleaning, Reporting &
+Dashboards, Workflow Optimisation, Operations Analytics, Stakeholder Coordination, Process
+Improvement, Workflow Automation, B2B Outreach & Sales) to get the same hover-description
+treatment as the 8 skill cards from Phase 19. Reused `.io-skill__popover` rather than building a
+new component, but added a `--center` modifier since pills are narrow and vary in width — the
+skill-card default (left-edge anchored) would run off one side of a short pill. Had to scope the
+hover trigger (`.io-pill:hover .io-skill__popover`) and the mobile always-visible override
+separately, since `.io-pill` is used elsewhere on the page (case study tags, project tool pills)
+without popovers — the mobile override was narrowed from a bare `.io-skill__popover` selector to
+`.io-skill .io-skill__popover` so it doesn't try to force pills into a static block layout, which
+would've broken their pill shape. All 8 pills got grounded descriptions (same standard as the
+skill cards — no invented claims). Verified live: hovering "Stakeholder Coordination" showed the
+centered card correctly positioned with its pointer arrow; moved cursor away, confirmed it closed.
+
+**Higgsfield OG image — blocked, not completed.** Ivan asked to use Higgsfield MCP to improve
+visuals. Flagged that generation costs real credits and asked what specifically before spending
+anything — landed on the one already-known concrete gap: `og:image`/`twitter:image` meta tags
+have pointed at `assets/images/og-preview.png` since the original build (before this session's
+history even starts) and that file has never existed, so link previews on LinkedIn/Twitter/Slack
+currently show nothing. Picked `nano_banana_pro` (Google, via Higgsfield) for its text-rendering
+strength, wrote a prompt matching the site's actual design tokens (dark #101114 bg, #991B1B
+burgundy accent, no photography/illustrated people — consistent with the site's existing
+no-stock-imagery aesthetic), preflighted cost (2 credits, cheap), then the real generation call
+failed: **workspace is out of Higgsfield credits.** Did not attempt to purchase credits on Ivan's
+behalf — that needs his explicit go-ahead. Offered three options: top up credits, build the OG
+card directly in HTML/CSS instead (zero cost, matches the rest of the site's build approach,
+same visual idea), or hold off. **No decision made — paused here for the night before Ivan
+answered.** Next session should open by asking which of those three he wants.
+
+Nothing pushed since commit `c011d71`. Everything from Phase 15 onward (nav/brackets/icons,
+projects grid fixes, infographics, skills/pills hover cards) is local-only, verified in-browser,
+and staged for Ivan's review before any future push — per the standing rule, still needs his
+explicit go-ahead right before it goes live, not just "looks done."
+
+---
+
+## Phase 21 — OG Image Resolved via HTML/CSS Build (2026-09-08)
+
+Continued the Phase 20 blocker in a new session. Reconnected Higgsfield (token had expired) and
+retried generation — failed again, workspace genuinely out of credits (1 of 2 needed). Per
+Ivan's direction, tried OpenArt.AI next: took a session-lifecycle detour (the newly-added MCP
+connector didn't show up via tool search until a fresh session picked it up — confirmed via
+screenshot on claude.ai that it really was connected on Ivan's account first). Generated one
+image via OpenArt's `nano-banana-2-lite` (15 of 40 free credits spent) — composition was
+genuinely good and matched the site's aesthetic, but free-tier OpenArt bakes an unremovable
+diagonal "OpenArt" watermark into every export; `openart_creation_get` confirmed no clean
+alternate resource existed. Did not purchase a credit top-up on either platform — no go-ahead
+given.
+
+Ivan chose the zero-cost path: build the OG card directly in HTML/CSS, reusing the real design
+tokens and the actual hero copy (`--bg-0` #101114, `--accent-0`/`--accent-1` burgundy, Inter +
+JetBrains Mono + Manrope, eyebrow "Operations · Data · Analytics", hero H1 tagline, "Singapore ·
+Open to Remote"). Built `og-card-source.html` (repo root, not linked from the live site — kept
+as an editable source for future re-renders) — a self-contained 1200×630 layout with the hero's
+burgundy radial glow, a faint grid texture, and a stat-card panel styled after the real
+`.io-hv__main` hero visual (Records/month +18.2%, Process cycle time −34%, a Q1–Q4 bar chart).
+
+Rendering: browser automation's `resize_window` tool is confirmed broken in this environment
+(flagged earlier via SendFeedback during the mobile audit — still true), so viewport-exact
+screenshots aren't reliable through it. Used headless Chrome directly instead —
+`chrome.exe --headless=new --window-size=1200,630 --force-device-scale-factor=2 --screenshot=...`
+against the local `file://` HTML — for a pixel-exact, supersampled 2400×1260 capture, then
+downscaled with .NET `System.Drawing` (HighQualityBicubic) to a crisp final 1200×630 PNG at
+`assets/images/og-preview.png` (169.7 KB). This closes a gap that predates this whole
+conversation — the meta tags have pointed at this path since the original site build and the
+file never existed until now.
+
+Not pushed — local-only, per the standing publish-review rule, same as everything else since
+Phase 15.
+
+---
+
+## Phase 22 — Full Local Review + About Section Rework (2026-09-09)
+
+New session. Walked the whole Phase 15–21 batch live in-browser (via a temporary local
+`python -m http.server` — `file://` doesn't resolve relative asset paths cleanly, and
+`resize_window` is still broken in this environment, confirmed again). Checked nav, hero,
+process-flow diagram, all 6 case study cards, the projects grid (including the Phase 16 wide
+podcast-card fix), career timeline, Skills/Practice hover cards (tested live by hovering —
+both worked correctly), and the "by the numbers" count-up grid. No visual bugs found. Nothing
+pushed.
+
+**About section content, per Ivan's feedback:**
+- Original current-role paragraph read like a data engineer's job description (led with
+  "extend and build automation systems... on top of Google Apps Script and Sheets") rather
+  than an Operations Manager's. Rewrote it to lead with the actual OM duties — supporting the
+  founder across client engagement operations and business growth, outreach, sales
+  operations, delivery — with the automation systems (lead pipelines, sales dashboards,
+  weekly reporting) now framed as *part of* that role rather than the headline.
+- Added a sentence to the "day to day" paragraph naming AI tools (Claude, Wispr Flow, Gemini,
+  and similar) as an extension of his operations work — faster drafting/documentation, an
+  accuracy check on data, quicker research — explicitly framed as augmenting his work, not
+  defining it, per Ivan's direction ("AI being an extension of what I do rather than it
+  controls what I do").
+- Cut the trailing "Based in Singapore... visa sponsorship" sentence — read as a job-application
+  preference line, out of place in narrative About copy, and redundant with the hero's
+  "Singapore · Open to remote" meta line.
+
+**About section layout/typography, iterated live against Ivan's numbers:**
+- `.io-about__copy p` — added `text-align: justify` + `text-justify: inter-word` + `hyphens:
+  auto` (paragraphs were ragged-right after the content edits shortened them); removed the
+  `max-width: 64ch` cap that was leaving a large unused strip on the right of the copy column
+  — text now fills the same right edge as every other section.
+- `#about .io-section__title` — new scoped rule, font-size stepped from `--fs-h2` to
+  `--fs-h3` (About-only, doesn't touch the shared `.io-section__title` used by every other
+  section heading).
+- `.io-about__copy p` font-size stepped from `--fs-body-lg` (18px) to `--fs-body` (16px),
+  About-only.
+- `.io-about` grid `gap` changed from `var(--space-16)` (64px) to a literal `40px`.
+
+**Site-wide tokens, also iterated live (these touch every section, not just About):**
+- `--max-width` 1200px → 1300px → 1400px → back to 1300px → **settled at 1250px**.
+- `--gutter` cap (`clamp(20px, 4vw, X)`) 32px → 40px → 50px → **settled at 30px**.
+
+Established a working pattern this session: Ivan can now just name a CSS custom property or
+rule (e.g. "gap: 40px", "--max-width: 1300px to 1250px") and get a direct edit — no need to
+describe changes in prose. Explained which properties are About-scoped vs site-wide so he
+knows the blast radius before asking for a number.
+
+Verification approach: local browser preview via a throwaway `python -m http.server` on a
+scratch port, opened in Ivan's actual default browser (not just the automation-controlled
+tab) so he could look himself. Hit a stale-cache issue once (CSS file cached from an earlier
+port/load even after a query-string-busted HTML reload) — fixed by moving to a fresh port
+rather than fighting the cache. Confirmed via `javascript_tool` that the server was serving
+the updated CSS before troubleshooting further.
+
+Nothing pushed. Still the same Phase 15–22 batch sitting local-only, now including these About
+edits, waiting on Ivan's review-and-push decision.
 
 ---
 

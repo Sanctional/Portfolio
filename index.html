@@ -31,6 +31,43 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Structured data — Person schema for search/AI-answer-engine entity recognition -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ivan Ong",
+    "alternateName": "Ong Jun Tong Ivan",
+    "url": "https://sanctional.github.io/Portfolio/",
+    "image": "https://sanctional.github.io/Portfolio/assets/ivan-profile.jpg",
+    "jobTitle": "Operations Manager",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Strategym"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Singapore",
+      "addressCountry": "SG"
+    },
+    "email": "mailto:IvanJTOng@gmail.com",
+    "sameAs": [
+      "https://www.linkedin.com/in/ivan-ong-a6985319b"
+    ],
+    "knowsAbout": [
+      "Operations Management",
+      "Data Operations",
+      "Workflow Automation",
+      "Google Apps Script",
+      "Excel",
+      "Google Sheets",
+      "SQL",
+      "Data Analytics"
+    ],
+    "description": "Singapore-based operations professional transitioning into data analytics, specialising in workflow automation, data validation, and operational reporting."
+  }
+  </script>
   <!--
     A3 — FOUC guard: hero elements are set to opacity:0 here, before the
     browser paints, so they never flash visible then snap to 0 when GSAP
@@ -61,21 +98,25 @@
 
   <!-- ===== NAV (single instance) ===== -->
   <nav class="io-nav" id="top-nav">
+    <div class="io-nav__links" id="nav-links">
+      <div class="io-nav__side io-nav__side--left">
+        <a href="#work"  class="io-nav__link" data-nav="work">Work</a>
+        <a href="#about" class="io-nav__link" data-nav="about">About</a>
+      </div>
+      <div class="io-nav__side io-nav__side--right">
+        <a href="#contact" class="io-nav__link" data-nav="contact">Contact</a>
+        <a href="assets/Ivan_Ong_CV_Master.pdf" download target="_blank" rel="noopener"
+           class="io-btn io-btn--primary io-btn--sm">
+          <i data-lucide="arrow-down-to-line"></i>
+          Download CV
+        </a>
+      </div>
+    </div>
     <a href="#top" class="io-nav__brand">
       <span class="io-nav__chip">IO</span>
       <span class="io-nav__name">Ivan Ong</span>
       <span class="io-nav__sub">· Operations / Data</span>
     </a>
-    <div class="io-nav__links" id="nav-links">
-      <a href="#work"    class="io-nav__link" data-nav="work">Work</a>
-      <a href="#about"   class="io-nav__link" data-nav="about">About</a>
-      <a href="#contact" class="io-nav__link" data-nav="contact">Contact</a>
-      <a href="assets/Ivan_Ong_CV_Master.pdf" download target="_blank" rel="noopener"
-         class="io-btn io-btn--primary io-btn--sm">
-        <i data-lucide="arrow-down-to-line"></i>
-        Download CV
-      </a>
-    </div>
     <button class="io-nav__toggle" id="nav-toggle" aria-label="Toggle menu">
       <i data-lucide="menu"></i>
     </button>
@@ -98,9 +139,11 @@
               Transforming operations into insights that drive better decisions.
             </h1>
             <p class="io-hero__sub">
-              Data-driven operations professional working across Data Operations and
-              Operations Analyst work — programme coordination, workflow
-              automation, operational reporting, and audit tracking.
+              Ivan Ong is a Singapore-based operations professional who helps teams
+              replace manual, error-prone workflows with automated systems —
+              spanning programme coordination, workflow automation, operational
+              reporting, and audit tracking — for measurably faster, more reliable
+              processes.
             </p>
             <div class="io-hero__ctas">
               <a href="#work" class="io-btn io-btn--primary">
@@ -197,6 +240,49 @@
         <div class="io-value-item__icon"><i data-lucide="git-merge"></i></div>
         <p class="io-value-item__title">Process Improvement</p>
         <p class="io-value-item__body">I find what's broken in data workflows and fix it — standardising inputs, reducing error rates, cutting manual processing time.</p>
+      </div>
+    </div>
+
+    <!-- ===== PROCESS FLOW — how the case studies below actually get built ===== -->
+    <div class="io-flow">
+      <div class="io-container">
+        <div class="io-flow__steps">
+          <div class="io-flow__step">
+            <div class="io-flow__icon"><i data-lucide="database"></i></div>
+            <div class="io-flow__text">
+              <span class="io-flow__num">01</span>
+              <p class="io-flow__label">Collect</p>
+              <p class="io-flow__desc">Pull raw records from forms, sheets, and lead sources into one place</p>
+            </div>
+          </div>
+          <div class="io-flow__arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="io-flow__step">
+            <div class="io-flow__icon"><i data-lucide="sparkles"></i></div>
+            <div class="io-flow__text">
+              <span class="io-flow__num">02</span>
+              <p class="io-flow__label">Clean &amp; Validate</p>
+              <p class="io-flow__desc">Standardise formats, dedupe records, catch errors before they spread</p>
+            </div>
+          </div>
+          <div class="io-flow__arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="io-flow__step">
+            <div class="io-flow__icon"><i data-lucide="workflow"></i></div>
+            <div class="io-flow__text">
+              <span class="io-flow__num">03</span>
+              <p class="io-flow__label">Automate</p>
+              <p class="io-flow__desc">Build the pipeline or dashboard that keeps it running without manual work</p>
+            </div>
+          </div>
+          <div class="io-flow__arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+          <div class="io-flow__step">
+            <div class="io-flow__icon"><i data-lucide="line-chart"></i></div>
+            <div class="io-flow__text">
+              <span class="io-flow__num">04</span>
+              <p class="io-flow__label">Report &amp; Decide</p>
+              <p class="io-flow__desc">Turn the output into a view teams can actually act on</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -440,6 +526,21 @@
                   <div class="io-modal__meta-col"><span class="io-eyebrow io-eyebrow--neutral">Tools</span><div class="io-case__tools"><span class="io-pill io-pill--sm">Excel</span><span class="io-pill io-pill--sm">Google Sheets</span><span class="io-pill io-pill--sm">Compliance Tracking</span><span class="io-pill io-pill--sm">Reporting</span></div></div>
                   <div class="io-modal__meta-col"><span class="io-eyebrow io-eyebrow--neutral">Data scale</span><p class="io-mono io-modal__scale">Reviewed across 6 teams · weekly cycle</p></div>
                 </div>
+                <div class="io-modal__block">
+                  <span class="io-eyebrow io-eyebrow--neutral">Before / After</span>
+                  <div class="io-compare">
+                    <div class="io-compare__row">
+                      <span class="io-compare__label">Before</span>
+                      <div class="io-compare__track"><div class="io-compare__bar io-compare__bar--before" style="width:100%"></div></div>
+                      <span class="io-compare__value">~4h</span>
+                    </div>
+                    <div class="io-compare__row">
+                      <span class="io-compare__label">After</span>
+                      <div class="io-compare__track"><div class="io-compare__bar io-compare__bar--after" style="width:13%"></div></div>
+                      <span class="io-compare__value">~30m</span>
+                    </div>
+                  </div>
+                </div>
                 <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Impact</span>
                   <ul class="io-impact">
                     <li><i data-lucide="check"></i><span>Compliance reporting time reduced from ~4 hours to ~30 minutes</span></li>
@@ -550,6 +651,21 @@
                   <div class="io-modal__meta-col"><span class="io-eyebrow io-eyebrow--neutral">Tools</span><div class="io-case__tools"><span class="io-pill io-pill--sm">Excel</span><span class="io-pill io-pill--sm">Google Sheets</span><span class="io-pill io-pill--sm">Reporting</span><span class="io-pill io-pill--sm">Operations Analytics</span></div></div>
                   <div class="io-modal__meta-col"><span class="io-eyebrow io-eyebrow--neutral">Data scale</span><p class="io-mono io-modal__scale">Used by ops leads across multiple teams · weekly cadence</p></div>
                 </div>
+                <div class="io-modal__block">
+                  <span class="io-eyebrow io-eyebrow--neutral">Views to Answer &quot;What Changed?&quot;</span>
+                  <div class="io-compare">
+                    <div class="io-compare__row">
+                      <span class="io-compare__label">Before</span>
+                      <div class="io-compare__track"><div class="io-compare__bar io-compare__bar--before" style="width:100%"></div></div>
+                      <span class="io-compare__value">3 views</span>
+                    </div>
+                    <div class="io-compare__row">
+                      <span class="io-compare__label">After</span>
+                      <div class="io-compare__track"><div class="io-compare__bar io-compare__bar--after" style="width:33%"></div></div>
+                      <span class="io-compare__value">1 view</span>
+                    </div>
+                  </div>
+                </div>
                 <div class="io-modal__block"><span class="io-eyebrow io-eyebrow--neutral">Impact</span>
                   <ul class="io-impact">
                     <li><i data-lucide="check"></i><span>Reduced standing-meeting time discussing report basics</span></li>
@@ -657,22 +773,26 @@
             </div>
           </article>
 
-          <article class="io-project">
+          <article class="io-project io-project--wide">
             <span class="io-project__num"></span>
-            <h3 class="io-project__title">Podcast Interviewing &amp; Production</h3>
-            <p class="io-project__blurb">Interviewer and on-camera host for a B2B podcast series featuring gym owners and founders — 6+ episodes recorded to date, with the production work end to end:</p>
-            <ul class="io-impact io-project__list">
-              <li><i data-lucide="check"></i><span>Interviewed and hosted on-camera, running structured guest interviews start to finish</span></li>
-              <li><i data-lucide="check"></i><span>Coordinated pre-production — scheduling recordings, confirming guests and locations</span></li>
-              <li><i data-lucide="check"></i><span>Designed custom guest questionnaires per gym from a master template</span></li>
-              <li><i data-lucide="check"></i><span>Provided on-set production support and handed off footage to the editor</span></li>
-              <li><i data-lucide="check"></i><span>Reviewed edits before release and coordinated episode distribution</span></li>
-            </ul>
-            <div class="io-project__tools">
-              <span class="io-pill io-pill--sm">On-Camera Interviewing</span>
-              <span class="io-pill io-pill--sm">Guest Research</span>
-              <span class="io-pill io-pill--sm">Production Coordination</span>
-              <span class="io-pill io-pill--sm">Google Docs</span>
+            <div class="io-project__wide-grid">
+              <div class="io-project__wide-col">
+                <h3 class="io-project__title">Podcast Interviewing &amp; Production</h3>
+                <p class="io-project__blurb">Interviewer and on-camera host for a B2B podcast series featuring gym owners and founders — 6+ episodes recorded to date, with the production work end to end:</p>
+                <div class="io-project__tools">
+                  <span class="io-pill io-pill--sm">On-Camera Interviewing</span>
+                  <span class="io-pill io-pill--sm">Guest Research</span>
+                  <span class="io-pill io-pill--sm">Production Coordination</span>
+                  <span class="io-pill io-pill--sm">Google Docs</span>
+                </div>
+              </div>
+              <ul class="io-impact io-project__list">
+                <li><i data-lucide="check"></i><span>Interviewed and hosted on-camera, running structured guest interviews start to finish</span></li>
+                <li><i data-lucide="check"></i><span>Coordinated pre-production — scheduling recordings, confirming guests and locations</span></li>
+                <li><i data-lucide="check"></i><span>Designed custom guest questionnaires per gym from a master template</span></li>
+                <li><i data-lucide="check"></i><span>Provided on-set production support and handed off footage to the editor</span></li>
+                <li><i data-lucide="check"></i><span>Reviewed edits before release and coordinated episode distribution</span></li>
+              </ul>
             </div>
           </article>
 
@@ -713,10 +833,12 @@
             </p>
             <p>
               Currently <span class="io-em">Operations Manager at Strategym</span>,
-              a strategy consultancy, where I extend and build automation systems —
-              lead pipelines, sales dashboards, weekly reporting — on top of Google
-              Apps Script and Sheets, alongside client-facing outreach, research, and
-              sales operations work.
+              a strategy consultancy, where I support the founder directly across
+              client engagement operations and business growth — expanding outreach,
+              running sales operations, and keeping delivery running smoothly for
+              clients. Part of that role is owning the operational systems behind
+              it: lead pipelines, sales dashboards, and weekly reporting built on
+              Google Apps Script and Sheets.
             </p>
             <p>
               I began my career in <span class="io-em">operations and police
@@ -729,12 +851,45 @@
               Sheets</span>, with growing hands-on experience in Google Apps
               Script and API-based automation: operational trackers, reporting
               workflows, data validation and cleaning, scheduling, and audit /
-              compliance views. Based in Singapore. Singapore-based and remote
-              roles preferred; open to Australia-based opportunities where visa
-              sponsorship is available.
+              compliance views. I also use <span class="io-em">AI tools —
+              Claude, Wispr Flow, Gemini, and similar</span> — as an extension
+              of that work rather than a substitute for it: faster drafting and
+              documentation, an extra layer of accuracy checking on data, and
+              quicker research turnaround, while the judgment and final calls
+              stay mine.
             </p>
             <div class="io-about__sig">
               <span class="io-mono">— Ivan Ong</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== CAREER TIMELINE — visual complement to the prose above ===== -->
+        <div class="io-timeline">
+          <div class="io-timeline__track">
+            <div class="io-timeline__node">
+              <span class="io-timeline__dot"></span>
+              <span class="io-timeline__date">2019 – 2022</span>
+              <p class="io-timeline__role">Retail &amp; Service Roles</p>
+              <p class="io-timeline__org">ASUS · EnergyOne · AFTERSHOCK · Luxottica</p>
+            </div>
+            <div class="io-timeline__node">
+              <span class="io-timeline__dot"></span>
+              <span class="io-timeline__date">2022 – 2024</span>
+              <p class="io-timeline__role">National Service Inspector</p>
+              <p class="io-timeline__org">Singapore Police Force</p>
+            </div>
+            <div class="io-timeline__node">
+              <span class="io-timeline__dot"></span>
+              <span class="io-timeline__date">2024 – 2026</span>
+              <p class="io-timeline__role">Operations Programme Coordinator</p>
+              <p class="io-timeline__org">Team Axis Pte Ltd</p>
+            </div>
+            <div class="io-timeline__node io-timeline__node--current">
+              <span class="io-timeline__dot"></span>
+              <span class="io-timeline__date">2026 – Present</span>
+              <p class="io-timeline__role">Operations Manager</p>
+              <p class="io-timeline__org">Strategym</p>
             </div>
           </div>
         </div>
@@ -765,19 +920,23 @@
               <span class="io-skills__heading-meta">Daily, production-grade</span>
             </div>
             <div class="io-skills__list">
-              <div class="io-skill">
+              <div class="io-skill" tabindex="0">
                 <div class="io-skill__icon"><i data-lucide="table-2"></i></div>
                 <div class="io-skill__text">
                   <div class="io-skill__label">Excel</div>
+                  <div class="io-skill__bar" aria-hidden="true"><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg"></span></div>
                   <div class="io-skill__level">Formulas · Pivot Tables · Lookups · Conditional Formatting</div>
                 </div>
+                <div class="io-skill__popover">Advanced formulas, pivot tables, lookups, and conditional formatting — used daily across operations roles to build trackers, reconciliation workflows, and reporting packs handling 1,000+ records a month.</div>
               </div>
-              <div class="io-skill">
+              <div class="io-skill" tabindex="0">
                 <div class="io-skill__icon"><i data-lucide="sheet"></i></div>
                 <div class="io-skill__text">
                   <div class="io-skill__label">Google Sheets</div>
+                  <div class="io-skill__bar" aria-hidden="true"><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg"></span></div>
                   <div class="io-skill__level">Live Trackers · Data Validation · Query / Filter Views</div>
                 </div>
+                <div class="io-skill__popover">Live trackers, data validation, and query/filter views — paired with Google Apps Script to run the automation systems (lead pipelines, sales dashboards) currently live in production at Strategym.</div>
               </div>
             </div>
           </div>
@@ -789,47 +948,59 @@
               <span class="io-skills__heading-meta">In progress</span>
             </div>
             <div class="io-skills__list">
-              <div class="io-skill io-skill--learning">
+              <div class="io-skill io-skill--learning" tabindex="0">
                 <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="database"></i></div>
                 <div class="io-skill__text">
                   <div class="io-skill__label">SQL <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__bar" aria-hidden="true"><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span></div>
                   <div class="io-skill__level">Joins · Aggregations · Working Queries</div>
                 </div>
+                <div class="io-skill__popover">Comfortable writing joins, aggregations, and working queries for a specific task — built through the Google Data Analytics cert and Specialist Diploma coursework. Not yet used in production client work.</div>
               </div>
-              <div class="io-skill io-skill--learning">
+              <div class="io-skill io-skill--learning" tabindex="0">
                 <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="code-2"></i></div>
                 <div class="io-skill__text">
                   <div class="io-skill__label">Python <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__bar" aria-hidden="true"><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span></div>
                   <div class="io-skill__level">Foundations · Pandas Basics</div>
                 </div>
+                <div class="io-skill__popover">Foundations and basic pandas for data cleaning and simple analysis — early-stage, from Specialist Diploma coursework. Haven't used it in client-facing or production work yet.</div>
               </div>
-              <div class="io-skill io-skill--learning">
+              <div class="io-skill io-skill--learning" tabindex="0">
                 <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="bar-chart-3"></i></div>
                 <div class="io-skill__text">
                   <div class="io-skill__label">Power BI <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__bar" aria-hidden="true"><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span></div>
                   <div class="io-skill__level">Foundations · Charts · Data Modelling</div>
                 </div>
+                <div class="io-skill__popover">Foundations, chart building, and basic data modelling from coursework. Google Sheets and Apps Script are what's actually live in production at Strategym — this is still classroom-stage.</div>
               </div>
-              <div class="io-skill io-skill--learning">
+              <div class="io-skill io-skill--learning" tabindex="0">
                 <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="workflow"></i></div>
                 <div class="io-skill__text">
                   <div class="io-skill__label">Data Pipelines &amp; ETL <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__bar" aria-hidden="true"><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span></div>
                   <div class="io-skill__level">ETL/ELT Concepts · Data Validation · Pipeline Basics</div>
                 </div>
+                <div class="io-skill__popover">ETL/ELT concepts, data validation patterns, and pipeline basics from the Specialist Diploma — conceptual grounding I'm building toward hands-on pipeline work.</div>
               </div>
-              <div class="io-skill io-skill--learning">
+              <div class="io-skill io-skill--learning" tabindex="0">
                 <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="webhook"></i></div>
                 <div class="io-skill__text">
                   <div class="io-skill__label">Apps Script &amp; API Integrations <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__bar" aria-hidden="true"><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span></div>
                   <div class="io-skill__level">Trigger Logic · Telegram Bot API · Facebook Lead Ads API</div>
                 </div>
+                <div class="io-skill__popover">Real production experience — extended and customised the Lead Management System's Apps Script codebase across 3 client accounts, and wired up Telegram Bot API and Facebook Lead Ads API notifications.</div>
               </div>
-              <div class="io-skill io-skill--learning">
+              <div class="io-skill io-skill--learning" tabindex="0">
                 <div class="io-skill__icon io-skill__icon--muted"><i data-lucide="terminal"></i></div>
                 <div class="io-skill__text">
                   <div class="io-skill__label">Bash / Shell Scripting <span class="io-skill__badge">LEARNING</span></div>
+                  <div class="io-skill__bar" aria-hidden="true"><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg is-filled"></span><span class="io-skill__seg"></span><span class="io-skill__seg"></span></div>
                   <div class="io-skill__level">Sync Scripts · AI-Assisted Development</div>
                 </div>
+                <div class="io-skill__popover">Built a NAS file-sync script from scratch, with AI-assisted development — designed the conflict-detection logic and exclusion rules myself. First real hands-on shell scripting project.</div>
               </div>
             </div>
           </div>
@@ -841,14 +1012,30 @@
               <span class="io-skills__heading-meta">Process strengths</span>
             </div>
             <div class="io-skills__pills">
-              <span class="io-pill"><i data-lucide="sparkles"></i> Data Cleaning</span>
-              <span class="io-pill"><i data-lucide="line-chart"></i> Reporting &amp; Dashboards</span>
-              <span class="io-pill"><i data-lucide="git-branch"></i> Workflow Optimisation</span>
-              <span class="io-pill"><i data-lucide="activity"></i> Operations Analytics</span>
-              <span class="io-pill"><i data-lucide="users"></i> Stakeholder Coordination</span>
-              <span class="io-pill"><i data-lucide="workflow"></i> Process Improvement</span>
-              <span class="io-pill"><i data-lucide="zap"></i> Workflow Automation</span>
-              <span class="io-pill"><i data-lucide="phone-call"></i> B2B Outreach &amp; Sales</span>
+              <span class="io-pill" tabindex="0"><i data-lucide="sparkles"></i> Data Cleaning
+                <span class="io-skill__popover io-skill__popover--center">Standardising messy operational inputs into a single schema — column-rename maps, category normalisation, and validation checklists reused across multiple reporting projects.</span>
+              </span>
+              <span class="io-pill" tabindex="0"><i data-lucide="line-chart"></i> Reporting &amp; Dashboards
+                <span class="io-skill__popover io-skill__popover--center">Turning raw records into structured views — from Excel compliance rollups to live Google Sheets dashboards with automated weekly digests.</span>
+              </span>
+              <span class="io-pill" tabindex="0"><i data-lucide="git-branch"></i> Workflow Optimisation
+                <span class="io-skill__popover io-skill__popover--center">Finding the extra step, the manual check, or the copy-paste hop in a process and removing it — usually the difference between a 4-hour report and a 30-minute one.</span>
+              </span>
+              <span class="io-pill" tabindex="0"><i data-lucide="activity"></i> Operations Analytics
+                <span class="io-skill__popover io-skill__popover--center">Reading operational data for patterns — scheduling conflicts, disruption rates, workload distribution — to inform what gets fixed next.</span>
+              </span>
+              <span class="io-pill" tabindex="0"><i data-lucide="users"></i> Stakeholder Coordination
+                <span class="io-skill__popover io-skill__popover--center">Keeping schedules, reports, and expectations aligned across rotating teams and multiple stakeholders — from audit teams to client sales teams.</span>
+              </span>
+              <span class="io-pill" tabindex="0"><i data-lucide="workflow"></i> Process Improvement
+                <span class="io-skill__popover io-skill__popover--center">Standardising inputs, tightening validation, and cutting the manual steps that cause errors — applied across scheduling, compliance, and data cleaning workflows.</span>
+              </span>
+              <span class="io-pill" tabindex="0"><i data-lucide="zap"></i> Workflow Automation
+                <span class="io-skill__popover io-skill__popover--center">Building the Apps Script and dashboard systems that keep a process running without someone manually checking it every day.</span>
+              </span>
+              <span class="io-pill" tabindex="0"><i data-lucide="phone-call"></i> B2B Outreach &amp; Sales
+                <span class="io-skill__popover io-skill__popover--center">Cold outreach, discovery calls, and running the full sales cycle from warm lead through close — hands-on client-facing work alongside the ops/data side.</span>
+              </span>
             </div>
           </div>
 
